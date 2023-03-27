@@ -53,6 +53,8 @@ class CriminalRecord(abc.ABC):
     MAX_DANGER_SCORE = 5
     """The maximum value the danger score can be. \n"""
 
+    ID_LENGTH = 36
+
     def __init__(self, criminal: Criminal, criminal_record_id: str, danger_score: int, is_arrested: bool, prison: PRISON, crime_list: List[Crime]):
         """Criminal Record class constructor"""
 
@@ -84,7 +86,7 @@ class CriminalRecord(abc.ABC):
         # validation if the prison is valid using the function validade_danger_score It raises a entity error if returns false
         if not CriminalRecord.validate_danger_score(danger_score):
             raise EntityError("danger_score")
-        self.crime_list = danger_score
+        self.danger_score = danger_score
 
     @staticmethod
     def validate_id(criminal_record_id: str) -> bool:
@@ -166,6 +168,6 @@ class CriminalRecord(abc.ABC):
             return False
         elif not all([type(crime) == Crime for crime in crime_list]):
             return False
-        elif crime_list == List.empty():
+        elif crime_list == []:
             return False
         return True

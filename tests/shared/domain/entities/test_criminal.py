@@ -189,7 +189,7 @@ class Test_Criminal:
             Criminal(name="VITOR", nickname="O destruidor de API",
                      description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=10, age=21, weight=65, height=1.90)
 
-    def test_criminal_age_is_not_age(self):
+    def test_criminal_age_is_not_int(self):
         """The function that tests if the age type is not int, it fails if the age type is passed as not int \n
             Example: age = "30" -> Fail 
             Example: age = 30 -> Pass 
@@ -206,3 +206,12 @@ class Test_Criminal:
         with pytest.raises(EntityError):
             Criminal(name="VITOR", nickname="O destruidor de API",
                      description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=10, age=None, weight=65, height=1.90)
+
+    def test_criminal_age_is_negative(self):
+        """The function that tests if the age is negative, it fails if the age type is passed as negative \n
+            Example: age = -30 -> Fail 
+            Example: age = 30 -> Pass 
+        """
+        with pytest.raises(EntityError):
+            Criminal(name="VITOR", nickname="O destruidor de API",
+                     description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=10, age=-30, weight=65, height=1.90)

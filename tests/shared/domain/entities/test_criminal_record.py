@@ -29,11 +29,12 @@ class Test_Criminal_Record:
         criminal_record = CriminalRecord(criminal_record_id="c303282d-f2e6-46ca-a04a-35d3d873712d", crime_list=Test_Criminal_Record.crime_list, criminal=Test_Criminal_Record.criminal,
                                          danger_score=3, is_arrested=True, prison=PRISON.ARKHAMASILUM)
 
-        assert criminal_record.crime_list == Test_Criminal_Record.crime_list
         assert criminal_record.criminal == Test_Criminal_Record.criminal
+        assert criminal_record.crime_list == Test_Criminal_Record.crime_list
         assert criminal_record.danger_score == 3
         assert criminal_record.is_arrested == True
         assert criminal_record.prison == PRISON.ARKHAMASILUM
+        assert criminal_record.criminal_record_id == "c303282d-f2e6-46ca-a04a-35d3d873712d"
 
     def test_criminal_record_id_is_none(self):
         """The function that tests if the id is none, it fails if the id is passed none \n
