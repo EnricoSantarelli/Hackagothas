@@ -14,8 +14,18 @@ class Test_Criminal:
             Example: height = "20" -> Fail 
             Example: region =  "BLOOD_TYPE.O_PLUS" -> Fail 
         """
-        Criminal(name="VITOR", nickname="O destruidor de API",
-                 description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90)
+        criminal = Criminal(name="VITOR", nickname="O destruidor de API",
+                            description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90)
+
+        assert criminal.name == "VITOR"
+        assert criminal.nickname == "O destruidor de API"
+        assert criminal.description == "Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front"
+        assert criminal.gender == GENDER.UNDEFINED
+        assert criminal.region == REGION.INDUSTRIAL_DISTRICT
+        assert criminal.age == 21
+        assert criminal.blood_type == BLOOD_TYPE.O_PLUS
+        assert criminal.height == 1.90
+        assert criminal.weight == 65.6
 
     def test_criminal_name_is_none(self):
         """The function that tests if the name is none, it fails if the name is passed none \n
@@ -155,7 +165,7 @@ class Test_Criminal:
     def test_criminal_gender_is_not_gender(self):
         """The function that tests if the gender is not gender, it fails if the gender is passed as not gender \n
             Example: gender = 30 -> Fail 
-            Example: gender = REGION.INDUSTRIAL_DISTRICT -> Pass 
+            Example: gender = GENDER.UNDEFINED  -> Pass 
         """
         with pytest.raises(EntityError):
             Criminal(name="VITOR", nickname="O destruidor de API",
@@ -178,3 +188,30 @@ class Test_Criminal:
         with pytest.raises(EntityError):
             Criminal(name="VITOR", nickname="O destruidor de API",
                      description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=10, age=21, weight=65, height=1.90)
+
+    def test_criminal_age_is_not_int(self):
+        """The function that tests if the age type is not int, it fails if the age type is passed as not int \n
+            Example: age = "30" -> Fail 
+            Example: age = 30 -> Pass 
+        """
+        with pytest.raises(EntityError):
+            Criminal(name="VITOR", nickname="O destruidor de API",
+                     description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=10, age="21", weight=65, height=1.90)
+
+    def test_criminal_age_is_none(self):
+        """The function that tests if the age type is not int, it fails if the age type is passed as not int \n
+            Example: age = None -> Fail 
+            Example: age = 30 -> Pass 
+        """
+        with pytest.raises(EntityError):
+            Criminal(name="VITOR", nickname="O destruidor de API",
+                     description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=10, age=None, weight=65, height=1.90)
+
+    def test_criminal_age_is_negative(self):
+        """The function that tests if the age is negative, it fails if the age type is passed as negative \n
+            Example: age = -30 -> Fail 
+            Example: age = 30 -> Pass 
+        """
+        with pytest.raises(EntityError):
+            Criminal(name="VITOR", nickname="O destruidor de API",
+                     description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=10, age=-30, weight=65, height=1.90)
