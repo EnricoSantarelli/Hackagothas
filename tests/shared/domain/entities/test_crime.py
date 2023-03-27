@@ -19,7 +19,7 @@ class Test_Crime:
             Example: crime_type = "Assalto" -> Fail
             Example: region =  "BLOOD_TYPE.O_PLUS" -> Fail
         """
-        crime = Crime(id="c303282d-f2e6-46ca-a04a-35d3d873712d", description="The crime was extremely violent, leaving 6 citizens injured and 2 dead. The author left few clues behind.",
+        crime = Crime(crime_id="c303282d-f2e6-46ca-a04a-35d3d873712d", description="The crime was extremely violent, leaving 6 citizens injured and 2 dead. The author left few clues behind.",
                       date=1585312648914, criminal=Test_Crime.criminal, crime_type=CRIME_TYPE.ARSON, region=REGION.AMUSEMENT_MILE, seriousness=SERIOUSNESS.HIGH)
 
         assert crime.crime_id == "c303282d-f2e6-46ca-a04a-35d3d873712d"
@@ -36,7 +36,7 @@ class Test_Crime:
             Example: id = "c303282d-f2e6-46ca-a04a-35d3d873712d" -> Pass
         """
         with pytest.raises(EntityError):
-            Crime(id=None, description="The crime was extremely violent, leaving 6 citizens injured and 2 dead. The author left few clues behind.",
+            Crime(crime_id=None, description="The crime was extremely violent, leaving 6 citizens injured and 2 dead. The author left few clues behind.",
                   date=1585312648914, criminal=Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90),
                   crime_type=CRIME_TYPE.ARSON, region=REGION.AMUSEMENT_MILE, seriousness=SERIOUSNESS.HIGH)
 
@@ -46,7 +46,7 @@ class Test_Crime:
             Example: id = "c303282d-f2e6-46ca-a04a-35d3d873712d" -> Pass
         """
         with pytest.raises(EntityError):
-            Crime(id=15, description="The crime was extremely violent, leaving 6 citizens injured and 2 dead. The author left few clues behind.",
+            Crime(crime_id=15, description="The crime was extremely violent, leaving 6 citizens injured and 2 dead. The author left few clues behind.",
                   date=1585312648914, criminal=Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90),
                   crime_type=CRIME_TYPE.ARSON, region=REGION.AMUSEMENT_MILE, seriousness=SERIOUSNESS.HIGH)
 
@@ -57,7 +57,7 @@ class Test_Crime:
             Example: id = "c303282d-f2e6-46ca-a04a-35d3d873712d" -> Pass 
         """
         with pytest.raises(EntityError):
-            Crime(id="c303282d-f2e6-46ca-a04a-35d532532523523512", description="The crime was extremely violent, leaving 6 citizens injured and 2 dead. The author left few clues behind.",
+            Crime(crime_id="c303282d-f2e6-46ca-a04a-35d532532523523512", description="The crime was extremely violent, leaving 6 citizens injured and 2 dead. The author left few clues behind.",
                   date=1585312648914, criminal=Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90),
                   crime_type=CRIME_TYPE.ARSON, region=REGION.AMUSEMENT_MILE, seriousness=SERIOUSNESS.HIGH)
 
@@ -67,7 +67,7 @@ class Test_Crime:
             Example: description = "The crime was extremely violent, leaving 6 citizens injured and 2 dead. The author left few clues behind." -> Pass 
         """
         with pytest.raises(EntityError):
-            Crime(id="c303282d-f2e6-46ca-a04a-35d532532523523512", description=15,
+            Crime(crime_id="c303282d-f2e6-46ca-a04a-35d532532523523512", description=15,
                   date=1585312648914, criminal=Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90),
                   crime_type=CRIME_TYPE.ARSON, region=REGION.AMUSEMENT_MILE, seriousness=SERIOUSNESS.HIGH)
 
@@ -77,7 +77,7 @@ class Test_Crime:
             Example: date = 1585312648914 -> Pass
         """
         with pytest.raises(EntityError):
-            Crime(id=None, description="The crime was extremely violent, leaving 6 citizens injured and 2 dead. The author left few clues behind.",
+            Crime(crime_id="c303282d-f2e6-46ca-a04a-35d532532523523512", description="The crime was extremely violent, leaving 6 citizens injured and 2 dead. The author left few clues behind.",
                   date=None, criminal=Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90),
                   crime_type=CRIME_TYPE.ARSON, region=REGION.AMUSEMENT_MILE, seriousness=SERIOUSNESS.HIGH)
 
@@ -87,7 +87,7 @@ class Test_Crime:
             Example: date = 1585312648914 -> Pass 
         """
         with pytest.raises(EntityError):
-            Crime(id="c303282d-f2e6-46ca-a04a-35d532532523523512", description=15,
+            Crime(crime_id="c303282d-f2e6-46ca-a04a-35d532532523523512", description=15,
                   date="1585312648914", criminal=Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90),
                   crime_type=CRIME_TYPE.ARSON, region=REGION.AMUSEMENT_MILE, seriousness=SERIOUSNESS.HIGH)
 
@@ -98,12 +98,12 @@ class Test_Crime:
             Example: date = 1585312648914 -> Pass 
         """
         with pytest.raises(EntityError):
-            Crime(id="c303282d-f2e6-46ca-a04a-35d532532523523512", description=15,
+            Crime(crime_id="c303282d-f2e6-46ca-a04a-35d532532523523512", description=15,
                   date=41242145153253252353253221321, criminal=Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90),
                   crime_type=CRIME_TYPE.ARSON, region=REGION.AMUSEMENT_MILE, seriousness=SERIOUSNESS.HIGH)
 
         with pytest.raises(EntityError):
-            Crime(id="c303282d-f2e6-46ca-a04a-35d532532523523512", description=15,
+            Crime(crime_id="c303282d-f2e6-46ca-a04a-35d532532523523512", description=15,
                   date=1232131, criminal=Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90),
                   crime_type=CRIME_TYPE.ARSON, region=REGION.AMUSEMENT_MILE, seriousness=SERIOUSNESS.HIGH)
 
@@ -113,7 +113,7 @@ class Test_Crime:
             Example: criminal = Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90) -> Pass 
         """
         with pytest.raises(EntityError):
-            Crime(id="c303282d-f2e6-46ca-a04a-35d532532523523512", description=15, date=41242145153253252353253221321,
+            Crime(crime_id="c303282d-f2e6-46ca-a04a-35d532532523523512", description=15, date=41242145153253252353253221321,
                   criminal=None, crime_type=CRIME_TYPE.ARSON, region=REGION.AMUSEMENT_MILE, seriousness=SERIOUSNESS.HIGH)
 
     def test_crime_criminal_is_not_criminal(self):
@@ -122,7 +122,7 @@ class Test_Crime:
             Example: criminal = Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90) -> Pass 
         """
         with pytest.raises(EntityError):
-            Crime(id="c303282d-f2e6-46ca-a04a-35d532532523523512", description=15, date=41242145153253252353253221321,
+            Crime(crime_id="c303282d-f2e6-46ca-a04a-35d532532523523512", description=15, date=41242145153253252353253221321,
                   criminal=145, crime_type=CRIME_TYPE.ARSON, region=REGION.AMUSEMENT_MILE, seriousness=SERIOUSNESS.HIGH)
 
     def test_crime_crime_type_is_none(self):
@@ -131,7 +131,7 @@ class Test_Crime:
             Example: crime_type = CRIME_TYPE.ARSON -> Pass 
         """
         with pytest.raises(EntityError):
-            Crime(id=None, description="The crime was extremely violent, leaving 6 citizens injured and 2 dead. The author left few clues behind.",
+            Crime(crime_id="c303282d-f2e6-46ca-a04a-35d532532523523512", description="The crime was extremely violent, leaving 6 citizens injured and 2 dead. The author left few clues behind.",
                   date=1585312648914, criminal=Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90),
                   crime_type=None, region=REGION.AMUSEMENT_MILE, seriousness=SERIOUSNESS.HIGH)
 
@@ -141,7 +141,7 @@ class Test_Crime:
             Example: crime_type = CRIME_TYPE.ARSON -> Pass 
         """
         with pytest.raises(EntityError):
-            Crime(id="c303282d-f2e6-46ca-a04a-35d532532523523512", description=15,
+            Crime(crime_id="c303282d-f2e6-46ca-a04a-35d532532523523512", description=15,
                   date=1232131, criminal=Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90),
                   crime_type=30, region=REGION.AMUSEMENT_MILE, seriousness=SERIOUSNESS.HIGH)
 
@@ -151,7 +151,7 @@ class Test_Crime:
             Example: region = REGION.INDUSTRIAL_DISTRICT -> Pass 
         """
         with pytest.raises(EntityError):
-            Crime(id=None, description="The crime was extremely violent, leaving 6 citizens injured and 2 dead. The author left few clues behind.",
+            Crime(crime_id="c303282d-f2e6-46ca-a04a-35d532532523523512", description="The crime was extremely violent, leaving 6 citizens injured and 2 dead. The author left few clues behind.",
                   date=1585312648914, criminal=Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90),
                   crime_type=None, region=None, seriousness=SERIOUSNESS.HIGH)
 
@@ -161,7 +161,7 @@ class Test_Crime:
             Example: region = REGION.INDUSTRIAL_DISTRICT -> Pass 
         """
         with pytest.raises(EntityError):
-            Crime(id="c303282d-f2e6-46ca-a04a-35d532532523523512", description=15,
+            Crime(crime_id="c303282d-f2e6-46ca-a04a-35d532532523523512", description=15,
                   date=1232131, criminal=Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90),
                   crime_type=30, region="São Caetano do Sul", seriousness=SERIOUSNESS.HIGH)
 
@@ -171,7 +171,7 @@ class Test_Crime:
             Example: seriousness = SERIOUSNESS.HIGH -> Pass 
         """
         with pytest.raises(EntityError):
-            Crime(id=None, description="The crime was extremely violent, leaving 6 citizens injured and 2 dead. The author left few clues behind.",
+            Crime(crime_id="c303282d-f2e6-46ca-a04a-35d532532523523512", description="The crime was extremely violent, leaving 6 citizens injured and 2 dead. The author left few clues behind.",
                   date=1585312648914, criminal=Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90),
                   crime_type=None, region=None, seriousness=None)
 
@@ -181,6 +181,6 @@ class Test_Crime:
             Example: seriousness = SERIOUSNESS.HIGH -> Pass 
         """
         with pytest.raises(EntityError):
-            Crime(id="c303282d-f2e6-46ca-a04a-35d532532523523512", description=15,
+            Crime(crime_id="c303282d-f2e6-46ca-a04a-35d532532523523512", description=15,
                   date=1232131, criminal=Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90),
                   crime_type=30, region="São Caetano do Sul", seriousness=50)
