@@ -55,7 +55,7 @@ class Criminal(abc.ABC):
             Example: 1.80. 
     """
 
-    min_name_lenght = 2
+    MIN_NAME_LENGTH = 2
     """The minimum string lenght is equal to 2. \n"""
 
     def __init__(self, name: str, gender: GENDER, region: REGION, blood_type: BLOOD_TYPE, age: int, weight: float, height: float, nickname: str = None, description: str = None):
@@ -101,6 +101,11 @@ class Criminal(abc.ABC):
             raise EntityError("blood_type")
         self.blood_type = blood_type
 
+        # validation if the age is valid using the function validade_age. It raises a entity error if returns false
+        if not Criminal.validate_age(age):
+            raise EntityError("age")
+        self.age = age
+
     @staticmethod
     def validate_name(name: str) -> bool:
         """The function that validates the name, it returns false if the name is none, the type is wrong or if its too small. \n
@@ -113,7 +118,7 @@ class Criminal(abc.ABC):
             return False
         elif type(name) != str:
             return False
-        elif len(name) < Criminal.min_name_lenght:
+        elif len(name) < Criminal.MIN_NAME_LENGTH:
             return False
         return True
 
@@ -126,7 +131,7 @@ class Criminal(abc.ABC):
         """
         if type(nickname) != str:
             return False
-        elif len(nickname) < Criminal.min_name_lenght:
+        elif len(nickname) < Criminal.MIN_NAME_LENGTH:
             return False
         return True
 
@@ -208,5 +213,19 @@ class Criminal(abc.ABC):
         if blood_type is None:
             return False
         elif type(blood_type) != BLOOD_TYPE:
+            return False
+        return True
+
+    def validate_age(age: int) -> bool:
+        """The function that validates the age, it returns false if the age is none or the type is wrong. \n
+            Example: age = "19" -> False 
+            Example: age = None -> False 
+            Example: age = 19 -> True 
+        """
+        if age is None:
+            return False
+        elif type(age) != int:
+            return False
+        elif age < 0:
             return False
         return True
