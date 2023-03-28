@@ -20,7 +20,7 @@ class CriminalRecord(abc.ABC):
             Example: 4. 
     """
 
-    criminal: Criminal
+    criminal_owner: Criminal
     """The author of the crime. \n
             Example: Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90)
     """
@@ -52,13 +52,13 @@ class CriminalRecord(abc.ABC):
 
     ID_LENGTH = 36
 
-    def __init__(self, criminal: Criminal, criminal_record_id: str, danger_score: int, is_arrested: bool,  crime_list: list[Crime], prison: PRISON = None):
+    def __init__(self, criminal_owner: Criminal, criminal_record_id: str, danger_score: int, is_arrested: bool, crime_list: list[Crime], prison: PRISON = None):
         """Criminal Record class constructor"""
 
         # validation if the criminal is valid using the function validade_criminal. It raises a entity error if returns false
-        if not CriminalRecord.validate_criminal(criminal):
+        if not CriminalRecord.validate_criminal(criminal_owner):
             raise EntityError("criminal")
-        self.criminal = criminal
+        self.criminal_owner = criminal_owner
 
         # validation if the isArrested is valid using the function validade_isArrested. It raises a entity error if returns false
         if not CriminalRecord.validate_is_arrested(is_arrested):
@@ -102,12 +102,12 @@ class CriminalRecord(abc.ABC):
         return True
 
     @staticmethod
-    def validate_criminal(criminal: Criminal) -> bool:
+    def validate_criminal_owner(criminal_owner: Criminal) -> bool:
         """The function that validates the criminal, it returns false if the type is wrong. \n
             Example: criminal = "1585312648914" -> False 
             Example: Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90) -> True 
         """
-        if type(criminal) != Criminal:
+        if type(criminal_owner) != Criminal:
             return False
         return True
 
