@@ -62,7 +62,7 @@ class CriminalRecord(abc.ABC):
 
         # validation if the isArrested is valid using the function validade_isArrested. It raises a entity error if returns false
         if not CriminalRecord.validate_is_arrested(is_arrested):
-            raise EntityError("isArrested")
+            raise EntityError("is_arrested")
         self.is_arrested = is_arrested
 
         # validation if the prison is valid using the function validade_prison. It raises a entity error if returns false
@@ -70,8 +70,8 @@ class CriminalRecord(abc.ABC):
             raise EntityError("prison")
         self.prison = prison
 
-        # validation if the prison is valid using the function validade_id. It raises a entity error if returns false
-        if not CriminalRecord.validate_id(criminal_record_id):
+        # validation if the criminal_record_id is valid using the function validade_criminal_record_id. It raises a entity error if returns false
+        if not CriminalRecord.validate_criminal_record_id(criminal_record_id):
             raise EntityError("criminal_record_id")
         self.criminal_record_id = criminal_record_id
 
@@ -86,7 +86,7 @@ class CriminalRecord(abc.ABC):
         self.danger_score = danger_score
 
     @staticmethod
-    def validate_id(criminal_record_id: str) -> bool:
+    def validate_criminal_record_id(criminal_record_id: str) -> bool:
         """The function that validates the id, it returns false if the id is none, the type is wrong or if its diferent of the necessary size. \n
             Example: criminal_record_i = 2.3 -> False 
             Example: criminal_record_i = None -> False 
