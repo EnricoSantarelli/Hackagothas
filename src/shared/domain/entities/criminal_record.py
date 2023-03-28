@@ -3,9 +3,6 @@ from typing import List
 
 from src.shared.domain.entities.crime import Crime
 from src.shared.domain.entities.criminal import Criminal
-from src.shared.domain.enums.crime_type_enum import CRIME_TYPE
-from src.shared.domain.enums.region_enum import REGION
-from src.shared.domain.enums.seriousness_enum import SERIOUSNESS
 from src.shared.domain.enums.prison_enum import PRISON
 from src.shared.helpers.errors.domain_errors import EntityError
 
