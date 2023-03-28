@@ -35,7 +35,7 @@ class CriminalRecord(abc.ABC):
             Example: PRISON.BLACKGATE. 
     """
 
-    crime_list: List[Crime]
+    crime_list: list[Crime]
     """The list of crimes the criminal commited. 
         Example: [Crime(id="c303282d-f2e6-46ca-a04a-35d3d873712d", description="The crime was extremely violent, leaving 6 citizens injured and 2 dead. The author left few clues behind.",
               date=1585312648914, criminal=Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90),
@@ -52,7 +52,7 @@ class CriminalRecord(abc.ABC):
 
     ID_LENGTH = 36
 
-    def __init__(self, criminal: Criminal, criminal_record_id: str, danger_score: int, is_arrested: bool, prison: PRISON, crime_list: List[Crime]):
+    def __init__(self, criminal: Criminal, criminal_record_id: str, danger_score: int, is_arrested: bool,  crime_list: list[Crime], prison: PRISON = None):
         """Criminal Record class constructor"""
 
         # validation if the criminal is valid using the function validade_criminal. It raises a entity error if returns false
@@ -123,7 +123,7 @@ class CriminalRecord(abc.ABC):
             return False
         elif type(danger_score) != int:
             return False
-        elif not CriminalRecord.MIN_DANGER_SCORE <= danger_score < CriminalRecord.MAX_DANGER_SCORE:
+        elif not CriminalRecord.MIN_DANGER_SCORE <= danger_score <= CriminalRecord.MAX_DANGER_SCORE:
             return False
         return True
 
@@ -134,9 +134,7 @@ class CriminalRecord(abc.ABC):
             Example: prison = None -> False 
             Example: prison = PRISON.BLACKGATE -> True 
         """
-        if prison is None:
-            return False
-        elif type(prison) != PRISON:
+        if type(prison) != PRISON and prison != None:
             return False
         return True
 
