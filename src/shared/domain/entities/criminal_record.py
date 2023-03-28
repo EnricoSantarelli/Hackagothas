@@ -56,8 +56,8 @@ class CriminalRecord(abc.ABC):
         """Criminal Record class constructor"""
 
         # validation if the criminal is valid using the function validade_criminal. It raises a entity error if returns false
-        if not CriminalRecord.validate_criminal(criminal_owner):
-            raise EntityError("criminal")
+        if not CriminalRecord.validate_criminal_owner(criminal_owner):
+            raise EntityError("criminal_owner")
         self.criminal_owner = criminal_owner
 
         # validation if the isArrested is valid using the function validade_isArrested. It raises a entity error if returns false
