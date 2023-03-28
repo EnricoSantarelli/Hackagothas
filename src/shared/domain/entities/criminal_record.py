@@ -62,7 +62,7 @@ class CriminalRecord(abc.ABC):
 
         # validation if the isArrested is valid using the function validade_isArrested. It raises a entity error if returns false
         if not CriminalRecord.validate_is_arrested(is_arrested):
-            raise EntityError("isArrested")
+            raise EntityError("is_arrested")
         self.is_arrested = is_arrested
 
         # validation if the prison is valid using the function validade_prison. It raises a entity error if returns false
