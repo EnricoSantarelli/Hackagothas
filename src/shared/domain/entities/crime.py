@@ -136,7 +136,7 @@ class Crime(abc.ABC):
         if type(criminal) != Criminal:
             return False
         elif criminal is None:
-            return 
+            return
         return True
 
     @staticmethod

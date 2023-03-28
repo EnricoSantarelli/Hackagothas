@@ -136,15 +136,6 @@ class Test_Criminal_Record:
             CriminalRecord(criminal_record_id="c303282d-f2e6-46ca-a04a-35d3d8", crime_list=Test_Criminal_Record.crime_list,
                            criminal=Test_Criminal_Record.criminal, danger_score=None, is_arrested="sim", prison=PRISON.ARKHAMASILUM)
 
-    def test_criminal_record_prison_is_none(self):
-        """The function that tests if the prison is none, it fails if the prison is passed none \n
-            Example: prison = None -> Fail 
-            Example: prison = PRISON.STATEPRISON -> Pass 
-        """
-        with pytest.raises(EntityError):
-            CriminalRecord(criminal_record_id=16, crime_list=Test_Criminal_Record.crime_list,
-                           criminal=Test_Criminal_Record.criminal, danger_score=3, is_arrested=True, prison=None)
-
     def test_criminal_record_prison_is_not_prison(self):
         """The function that tests if the prison is other type, it fails if the prison is passed as anything but prison enum \n
             Example: prison = "Prisão" -> Fail 

@@ -8,7 +8,6 @@ from src.shared.domain.enums.crime_type_enum import CRIME_TYPE
 from src.shared.domain.enums.gender_enum import GENDER
 from src.shared.domain.enums.prison_enum import PRISON
 from src.shared.domain.enums.region_enum import REGION
-import uuid
 from src.shared.domain.enums.seriousness_enum import SERIOUSNESS
 from src.shared.domain.repositories.criminal_record_repository_interface import ICriminalRecordRepository
 
@@ -18,22 +17,22 @@ from src.shared.helpers.errors.usecase_errors import NoItemsFound
 class CriminalRecordRepositoryMock(ICriminalRecordRepository):
     """Repository responsible for request the CRUD"""
 
-    criminals_list: List[Criminal]
+    criminal_list: list[Criminal]
     """
       List of criminals
     """
 
-    crimes_list: List[Crime]
+    crime_list: list[Crime]
     """
       List of crimes
     """
 
-    criminal_records: List[CriminalRecord]
+    criminal_record_list: list[CriminalRecord]
     """
       List of criminal records
     """
 
-    criminal_counter: int
+    criminal_records_counter: int
     """
       Number of criminals in the list criminals
     """
@@ -42,9 +41,7 @@ class CriminalRecordRepositoryMock(ICriminalRecordRepository):
         """
             Criminal Record Repository Mock constructor
         """
-        criminal_record_generated_id = uuid.uuid4()
-        crime_generated_id = uuid.uuid4()
-        self.criminals_list = [
+        self.criminal_list = [
             Criminal(name="Lonnie Machin",
                      nickname="Anarky",
                      description="Anarky uses his abilities to bring down any corporation or authoritative entity that he feels hurts and oppresses people. While he can throw a punch as well as anyone, he relies primarily on his thorough understanding of modern technology to defeat his foes along with the very essence of anarchy itself—surprise.",
@@ -52,7 +49,7 @@ class CriminalRecordRepositoryMock(ICriminalRecordRepository):
                      region=REGION.NEW_GOTHAM,
                      blood_type=BLOOD_TYPE.UNDEFINED,
                      age=16,
-                     weight=75,
+                     weight=75.2,
                      height=1.70),
             Criminal(name="Antônio Diego",
                      nickname="Bane",
@@ -83,110 +80,107 @@ class CriminalRecordRepositoryMock(ICriminalRecordRepository):
                      height=1.75),
         ]
 
-        self.crimes_list = [
-            Crime(crime_id=str(crime_generated_id),
+        self.crime_list = [
+            Crime(crime_id="d9af6081-74f9-478d-9599-d2b21a06b386",
                   crime_type=CRIME_TYPE.ARSON,
-                  criminal=self.criminals_list[0],
-                  date=1679951134400,
+                  criminal=self.criminal_list[0],
+                  date=1648755588000,
                   description="Crime committed violently against innocent people",
                   region=REGION.AMUSEMENT_MILE,
                   seriousness=SERIOUSNESS.HIGH),
-            Crime(crime_id=str(crime_generated_id),
+            Crime(crime_id="9130a793-ad89-4171-adf2-c33575a4c066",
                   crime_type=CRIME_TYPE.THEFT,
-                  criminal=self.criminals_list[0],
-                  date=1679951629699,
+                  criminal=self.criminal_list[0],
+                  date=1648755588000,
                   description="Armed robbery against the elderly",
                   region=REGION.NEW_GOTHAM,
                   seriousness=SERIOUSNESS.MEDIUM),
-            Crime(crime_id=str(crime_generated_id),
+            Crime(crime_id="d7bf024d-bd24-4fd4-be7e-f6ea1107d8c4",
                   crime_type=CRIME_TYPE.KIDNAPPING,
-                  criminal=self.criminals_list[1],
-                  date=1679951748647,
+                  criminal=self.criminal_list[1],
+                  date=1648755588000,
                   description="Sold marijuana and methamphetamine",
                   region=REGION.FOUNDER_ISLAND,
                   seriousness=SERIOUSNESS.HIGH),
-            Crime(crime_id=str(crime_generated_id),
+            Crime(crime_id="01302785-e445-48ab-8eaf-ed95d4d0f0ed",
                   crime_type=CRIME_TYPE.DRUG_DEALING,
-                  criminal=self.criminals_list[1],
-                  date=1679951748647,
+                  criminal=self.criminal_list[1],
+                  date=1648755588000,
                   description="Kidnapping of an orphaned child",
                   region=REGION.FOUNDER_ISLAND,
                   seriousness=SERIOUSNESS.LOW),
-            Crime(crime_id=str(crime_generated_id),
+            Crime(crime_id="5e4667f7-b0bc-4e0a-b8b7-1386f2b4608d",
                   crime_type=CRIME_TYPE.MURDER,
-                  criminal=self.criminals_list[2],
-                  date=1262304000000,
+                  criminal=self.criminal_list[2],
+                  date=1648755588000,
                   description="Assassination of the president's family",
                   region=REGION.NEW_GOTHAM,
                   seriousness=SERIOUSNESS.HIGH),
-            Crime(crime_id=str(crime_generated_id),
+            Crime(crime_id="ab8cb62e-aca9-4f79-ad82-b77180e53498",
                   crime_type=CRIME_TYPE.ARSON,
-                  criminal=self.criminals_list[2],
-                  date=946684800000,
+                  criminal=self.criminal_list[2],
+                  date=1648755588000,
                   description="Setting fire in 10 houses in one night, all the victims where from a organization",
                   region=REGION.OLD_GOTHAM,
                   seriousness=SERIOUSNESS.HIGH),
-            Crime(crime_id=str(crime_generated_id),
+            Crime(crime_id="79fc6ada-a004-449f-b745-d015caeac6ca",
                   crime_type=CRIME_TYPE.DRUG_DEALING,
-                  criminal=self.criminals_list[3],
-                  date=1679951748647,
+                  criminal=self.criminal_list[3],
+                  date=1648755588000,
                   description="Seeling drugs to 16 years old in alleys close to schools, resident areas and hospitals",
                   region=REGION.NEW_GOTHAM,
                   seriousness=SERIOUSNESS.MEDIUM),
-            Crime(crime_id=str(crime_generated_id),
+            Crime(crime_id="e871717e-b9cf-4f2b-8be0-9e6221cc59dc",
                   crime_type=CRIME_TYPE.MURDER,
-                  criminal=self.criminals_list[3],
-                  date=946684800250,
+                  criminal=self.criminal_list[3],
+                  date=1648755588000,
                   description="Assanation of many doctors",
                   region=REGION.INDUSTRIAL_DISTRICT,
                   seriousness=SERIOUSNESS.MEDIUM),
 
         ]
-        self.criminal_records = [
-            CriminalRecord(criminal=self.criminals_list[0],
-                           crime_list=[self.crimes_list[0],
-                                       self.crimes_list[1]],
-                           criminal_record_id=str(
-                               criminal_record_generated_id),
+        self.criminal_record_list = [
+            CriminalRecord(criminal=self.criminal_list[0],
+                           crime_list=[self.crime_list[0],
+                                       self.crime_list[1]],
+                           criminal_record_id="4d108071-6d0f-48cb-8675-5d38049c3ecc",
                            danger_score=3,
                            is_arrested=False),
-            CriminalRecord(criminal=self.criminals_list[1],
-                           crime_list=[self.crimes_list[2],
-                                       self.crimes_list[3]],
-                           criminal_record_id=str(
-                               criminal_record_generated_id),
+            CriminalRecord(criminal=self.criminal_list[1],
+                           crime_list=[self.crime_list[2],
+                                       self.crime_list[3]],
+                           criminal_record_id="7f2365f2-193c-41a8-a336-52b18069bf47",
                            danger_score=2,
                            is_arrested=True,
                            prison=PRISON.STATEPRISON),
-            CriminalRecord(criminal_record_id=str(criminal_record_generated_id),
-                           criminal=self.criminals_list[2],
+            CriminalRecord(criminal_record_id="c5fe225f-3437-4906-b0ed-e58d69cb9737",
+                           criminal=self.criminal_list[2],
                            danger_score=4,
                            is_arrested=False,
-                           crime_list=[self.crimes_list[4], self.crimes_list[5]]),
-            CriminalRecord(criminal=self.criminals_list[3],
-                           crime_list=[self.crimes_list[6],
-                                       self.crimes_list[7]],
-                           criminal_record_id=str(
-                               criminal_record_generated_id),
+                           crime_list=[self.crime_list[4], self.crime_list[5]]),
+            CriminalRecord(criminal=self.criminal_list[3],
+                           crime_list=[self.crime_list[6],
+                                       self.crime_list[7]],
+                           criminal_record_id="eb24786c-72fe-49d4-9d51-83d985c5c68a",
                            danger_score=3,
                            is_arrested=False),
         ]
-        self.criminal_counter = 4
+        self.criminal_records_counter = 4
 
     def get_criminal_record(self, criminal_record_id: int) -> CriminalRecord:
         """
             Function that returns the criminal record of the passed criminal record id
         """
-        for criminal_record in self.criminal_record:
+        for criminal_record in self.criminal_record_list:
             if criminal_record.criminal_record_id == criminal_record_id:
                 return criminal_record
-        raise NoItemsFound("user_id")
+        raise NoItemsFound("criminal_record_id")
 
     def create_criminal_record(self, new_criminal_record: CriminalRecord) -> CriminalRecord:
         """
             Function that creates and return a new criminal record
         """
-        self.criminal_records.append(new_criminal_record)
+        self.criminal_record_list.append(new_criminal_record)
         self.criminal_records_counter += 1
         return new_criminal_record
 
@@ -194,24 +188,24 @@ class CriminalRecordRepositoryMock(ICriminalRecordRepository):
         """
             Function that delete a criminal record of the list criminal_records
         """
-        for idx, record in enumerate(self.criminal_records):
+        for index, record in enumerate(self.criminal_record_list):
             if record.criminal_record_id == criminal_record_id:
-                return self.criminal_records.pop(idx)
+                return self.criminal_record_list.pop(index)
 
-        raise NoItemsFound("user_id")
+        raise NoItemsFound("criminal_record_id")
 
     def update_criminal_record(self, criminal_record_id: str, new_danger_score: int = None, new_criminal: Criminal = None, new_is_arrested: bool = None, new_prison: PRISON = None, new_crime_list: List[Crime] = None) -> CriminalRecord:
         """
             Function that updates and return a new criminal record of the passed criminal record id
-        """      
-        for criminal_record in self.criminal_records:
+        """
+        for criminal_record in self.criminal_record_list:
             if criminal_record.criminal_record_id == criminal_record_id:
                 if new_danger_score is not None:
                     criminal_record.danger_score = new_danger_score
                 if new_criminal is not None:
-                    criminal_record.criminal_record_id = new_criminal
+                    criminal_record.criminal = new_criminal
                 if new_is_arrested is not None:
-                    criminal_record.new_arrested = new_is_arrested
+                    criminal_record.is_arrested = new_is_arrested
                 if new_prison is not None:
                     criminal_record.prison = new_prison
                 if new_crime_list is not None:
