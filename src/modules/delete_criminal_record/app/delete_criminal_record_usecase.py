@@ -20,7 +20,7 @@ class DeleteCriminalRecordUsecase:
         # get the criminal record in the repository mock with the id passed
         criminal_record = self.repo.get_criminal_record(
             criminal_record_id=criminal_record_id)
-
+        
         # validation if the criminal_record_id exists. It raises a no items found if it doesn't exists
         if criminal_record is None:
             raise NoItemsFound("criminal_record")
