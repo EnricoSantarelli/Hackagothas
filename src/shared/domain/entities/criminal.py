@@ -20,7 +20,7 @@ class Criminal(abc.ABC):
             Example: Joker 
     """
 
-    description: str
+    criminal_description: str
     """The description of the criminal. It is not required. \n
             Example: A complete psychopath with no moral compass whatsoever, the Joker, is characterized by his chalk-white skin, green hair and a permanent rictus grin stretched across his face. But there isn’t a single thing funny about this particular clown, who only finds humor in the suffering of others. 
     """
@@ -30,7 +30,7 @@ class Criminal(abc.ABC):
             Example: Male. 
     """
 
-    region: REGION
+    criminal_region: REGION
     """The territory in which the criminal apears the most. \n
             Example: Industrial District. 
     """
@@ -58,7 +58,7 @@ class Criminal(abc.ABC):
     MIN_NAME_LENGTH = 2
     """The minimum string lenght is equal to 2. \n"""
 
-    def __init__(self, name: str, gender: GENDER, region: REGION, blood_type: BLOOD_TYPE, age: int, weight: float, height: float, nickname: str = None, description: str = None):
+    def __init__(self, name: str, gender: GENDER, criminal_region: REGION, blood_type: BLOOD_TYPE, age: int, weight: float, height: float, nickname: str = None, criminal_description: str = None):
         """Criminal class constructor"""
 
         # validation if the name is valid using the function validade_name. It raises a entity error if returns false
@@ -67,9 +67,9 @@ class Criminal(abc.ABC):
         self.name = name
 
         # validation if the description is valid using the function validade_description. It raises a entity error if returns false
-        if not Criminal.validate_description(description):
-            raise EntityError("description")
-        self.description = description
+        if not Criminal.validate_criminal_description(criminal_description):
+            raise EntityError("criminal_description")
+        self.criminal_description = criminal_description
 
         # validation if the nickname is valid using the function validade_nickname. It raises a entity error if returns false
         if not Criminal.validate_nickname(nickname):
@@ -87,9 +87,9 @@ class Criminal(abc.ABC):
         self.height = height
 
         # validation if the region is valid using the function validade_region. It raises a entity error if returns false
-        if not Criminal.validate_region(region):
-            raise EntityError("region")
-        self.region = region
+        if not Criminal.validate_criminal_region(criminal_region):
+            raise EntityError("criminal_region")
+        self.criminal_region = criminal_region
 
         # validation if the gender is valid using the function validade_gender. It raises a entity error if returns false
         if not Criminal.validate_gender(gender):
@@ -136,12 +136,12 @@ class Criminal(abc.ABC):
         return True
 
     @staticmethod
-    def validate_description(description: str) -> bool:
+    def validate_criminal_description(criminal_description: str) -> bool:
         """The function that validates the description, it returns false if the type is wrong. \n
             Example: decription = 30 -> False 
             Example: decription = "This guys is pika" -> True 
         """
-        if type(description) != str:
+        if type(criminal_description) != str:
             return False
         return True
 
@@ -176,16 +176,16 @@ class Criminal(abc.ABC):
         return True
 
     @staticmethod
-    def validate_region(region: REGION) -> bool:
+    def validate_criminal_region(criminal_region: REGION) -> bool:
         """The function that validates the region, it returns false if the type is wrong or if it is None. \n
             Example: region = 15 -> False 
             Example: region = None -> False 
             Example: region = "MC Pipokinha" -> False 
             Example: region = REGION.BLEAK_ISLAND -> True 
         """
-        if region is None:
+        if criminal_region is None:
             return False
-        elif type(region) != REGION:
+        elif type(criminal_region) != REGION:
             return False
         return True
 
