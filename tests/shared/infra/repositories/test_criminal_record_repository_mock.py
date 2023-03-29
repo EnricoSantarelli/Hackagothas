@@ -107,7 +107,7 @@ class Test_CriminalRecordRepositoryMock:
         repo = CriminalRecordRepositoryMock()
 
         new_criminal_record = repo.update_criminal_record(criminal_record_id="4d108071-6d0f-48cb-8675-5d38049c3ecc", new_crime_list=self.crime_list,
-                                                          new_criminal=self.criminal, new_is_arrested=True, new_prison=PRISON.ARKHAMASILUM, new_danger_score=2)
+                                                          new_criminal_owner=self.criminal, new_is_arrested=True, new_prison=PRISON.ARKHAMASILUM, new_danger_score=2)
 
         assert new_criminal_record.crime_list == self.crime_list
         assert new_criminal_record.criminal_owner == self.criminal
