@@ -15,7 +15,7 @@ class Crime(abc.ABC):
             Example: c303282d-f2e6-46ca-a04a-35d3d873712d 
     """
 
-    description: str
+    crime_description: str
     """The description of how the crime occurred. \n
             Example: The crime was extremely violent, leaving 6 citizens injured and 2 dead. The author left few clues behind.
     """
@@ -25,7 +25,7 @@ class Crime(abc.ABC):
             Example: 1585312648914
         """
 
-    criminal: Criminal
+    responsible_criminal: Criminal
     """The author of the crime. \n
             Example: Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90)
     """
@@ -35,7 +35,7 @@ class Crime(abc.ABC):
             Example: Murder
     """
 
-    region: REGION
+    crime_region: REGION
     """The region in which the crime ocurred. \n
             Example: Industrial District. 
     """
@@ -48,18 +48,18 @@ class Crime(abc.ABC):
     ID_LENGTH = 36
     """The string lenght is equal to 36. \n"""
 
-    def __init__(self, crime_id: str, date: int, criminal: Criminal, crime_type: CRIME_TYPE, region: REGION, seriousness: SERIOUSNESS, description: str = None):
+    def __init__(self, crime_id: str, date: int, responsible_criminal: Criminal, crime_type: CRIME_TYPE, crime_region: REGION, seriousness: SERIOUSNESS, crime_description: str = None):
         """Crime class constructor"""
 
         # validation if the id is valid using the function validade_id. It raises a entity error if returns false
-        if not Crime.validate_id(crime_id):
+        if not Crime.validate_crime_id(crime_id):
             raise EntityError("crime_id")
         self.crime_id = crime_id
 
         # validation if the description is valid using the function validade_description. It raises a entity error if returns false
-        if not Crime.validate_description(description):
-            raise EntityError("description")
-        self.description = description
+        if not Crime.validate_crime_description(crime_description):
+            raise EntityError("crime_description")
+        self.crime_description = crime_description
 
         # validation if the date is valid using the function validade_date. It raises a entity error if returns false
         if not Crime.validate_date(date):
@@ -67,9 +67,9 @@ class Crime(abc.ABC):
         self.date = date
 
         # validation if the criminal is valid using the function validade_criminal. It raises a entity error if returns false
-        if not Crime.validate_criminal(criminal):
+        if not Crime.validate_responsible_criminal(responsible_criminal):
             raise EntityError("criminal")
-        self.criminal = criminal
+        self.responsible_criminal = responsible_criminal
 
         # validation if the crime_type is valid using the function validade_crime_type. It raises a entity error if returns false
         if not Crime.validate_crime_type(crime_type):
@@ -77,9 +77,9 @@ class Crime(abc.ABC):
         self.crime_type = crime_type
 
         # validation if the region is valid using the function validade_region. It raises a entity error if returns false
-        if not Crime.validate_region(region):
-            raise EntityError("region")
-        self.region = region
+        if not Crime.validate_crime_region(crime_region):
+            raise EntityError("crime_region")
+        self.crime_region = crime_region
 
         # validation if the seriousness is valid using the function validade_seriousness. It raises a entity error if returns false
         if not Crime.validate_seriousness(seriousness):
@@ -87,7 +87,7 @@ class Crime(abc.ABC):
         self.seriousness = seriousness
 
     @staticmethod
-    def validate_id(crime_id: str) -> bool:
+    def validate_crime_id(crime_id: str) -> bool:
         """The function that validates the id, it returns false if the id is none, the type is wrong or if its diferent of the necessary size. \n
             Example: crime_id = 2.3 -> False 
             Example: crime_id = None -> False 
@@ -103,12 +103,12 @@ class Crime(abc.ABC):
         return True
 
     @staticmethod
-    def validate_description(description: str) -> bool:
+    def validate_crime_description(crime_description: str) -> bool:
         """The function that validates the description, it returns false if the type is wrong. \n
             Example: decription = 30 -> False 
             Example: decription = "The crime was extremely violent, leaving 6 citizens injured and 2 dead. The author left few clues behind." -> True 
         """
-        if type(description) != str:
+        if type(crime_description) != str:
             return False
         return True
 
@@ -128,14 +128,14 @@ class Crime(abc.ABC):
         return True
 
     @staticmethod
-    def validate_criminal(criminal: Criminal) -> bool:
+    def validate_responsible_criminal(responsible_criminal: Criminal) -> bool:
         """The function that validates the criminal, it returns false if the type is wrong. \n
             Example: criminal = "1585312648914" -> False 
             Example: Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90) -> True 
         """
-        if type(criminal) != Criminal:
+        if type(responsible_criminal) != Criminal:
             return False
-        elif criminal is None:
+        elif responsible_criminal is None:
             return
         return True
 
@@ -153,15 +153,15 @@ class Crime(abc.ABC):
         return True
 
     @staticmethod
-    def validate_region(region: REGION) -> bool:
+    def validate_crime_region(crime_region: REGION) -> bool:
         """The function that validates the region, it returns false if the type is wrong or if it is None. \n
             Example: region = 15 -> False 
             Example: region = None -> False 
             Example: region = REGION.BLEAK_ISLAND -> True 
         """
-        if region is None:
+        if crime_region is None:
             return False
-        elif type(region) != REGION:
+        elif type(crime_region) != REGION:
             return False
         return True
 
