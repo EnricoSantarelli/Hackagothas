@@ -165,7 +165,6 @@ class CriminalRecordRepositoryMock(ICriminalRecordRepository):
                            danger_score=3,
                            is_arrested=False),
         ]
-        self.criminal_records_counter = 4
 
     def get_criminal_record(self, criminal_record_id: int) -> CriminalRecord:
         """
@@ -181,7 +180,6 @@ class CriminalRecordRepositoryMock(ICriminalRecordRepository):
             Function that creates and return a new criminal record
         """
         self.criminal_record_list.append(new_criminal_record)
-        self.criminal_records_counter += 1
         return new_criminal_record
 
     def delete_criminal_record(self, criminal_record_id: str) -> CriminalRecord:

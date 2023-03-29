@@ -93,13 +93,10 @@ class CriminalRecordViewmodel:
     criminal_owner: CriminalViewmodel
     is_arrested: bool
     prison: PRISON
-    crime_list: list[CrimeViewmodel]
 
     def __init__(self, criminal_record: CriminalRecord):
         """Criminal Record Viewmodel constructor"""
         self.criminal_record_id = criminal_record.criminal_record_id
-        self.crime_list = [CrimeViewmodel(crime)
-                           for crime in criminal_record.crime_list]
         self.criminal_owner = CriminalViewmodel(criminal_record.criminal_owner)
         self.danger_score = criminal_record.danger_score
         self.is_arrested = criminal_record.is_arrested
@@ -114,7 +111,6 @@ class CriminalRecordViewmodel:
         """
         return {
             'criminal_record_id': self.criminal_record_id,
-            'crime_list': [(crime.to_dict()) for crime in self.crime_list],
             'criminal_owner': self.criminal_owner.to_dict(),
             'danger_score': self.danger_score,
             'is_arrested': self.is_arrested,

@@ -16,12 +16,11 @@ class Test_UpdateCriminalRecordUsecase:
         repo = CriminalRecordRepositoryMock()
         usecase = UpdateCriminalRecordUsecase(repo=repo)
 
-        update_criminal_record = usecase(criminal_record_id=repo.criminal_record_list[0].criminal_record_id, new_crime_list=[
-                                         repo.crime_list[2], repo.crime_list[3]], new_criminal_owner=repo.criminal_list[1], new_is_arrested=True, new_prison=PRISON.STATEPRISON, new_danger_score=2)
+        update_criminal_record = usecase(criminal_record_id=repo.criminal_record_list[0].criminal_record_id,
+                                         new_criminal_owner=repo.criminal_list[1], new_is_arrested=True, new_prison=PRISON.STATEPRISON, new_danger_score=2)
 
         assert type(update_criminal_record) == CriminalRecord
 
-        assert repo.criminal_record_list[0].crime_list == update_criminal_record.crime_list
         assert repo.criminal_record_list[0].criminal_owner == update_criminal_record.criminal_owner
         assert repo.criminal_record_list[0].danger_score == update_criminal_record.danger_score
         assert repo.criminal_record_list[0].is_arrested == update_criminal_record.is_arrested
@@ -34,8 +33,8 @@ class Test_UpdateCriminalRecordUsecase:
         repo = CriminalRecordRepositoryMock()
         usecase = UpdateCriminalRecordUsecase(repo=repo)
         with pytest.raises(NoItemsFound):
-            criminal_record = usecase(criminal_record_id="eb24786c-72fe-49d4-9d51-83d985c5caaa", new_crime_list=[
-                repo.crime_list[2], repo.crime_list[3]], new_criminal_owner=repo.criminal_list[1], new_is_arrested=True, new_prison=PRISON.STATEPRISON, new_danger_score=2)
+            criminal_record = usecase(criminal_record_id="eb24786c-72fe-49d4-9d51-83d985c5caaa",
+                                      new_criminal_owner=repo.criminal_list[1], new_is_arrested=True, new_prison=PRISON.STATEPRISON, new_danger_score=2)
 
     def test_update_criminal_record_usecase_wrong_criminal_record_id(self):
         """
@@ -44,14 +43,14 @@ class Test_UpdateCriminalRecordUsecase:
         repo = CriminalRecordRepositoryMock()
         usecase = UpdateCriminalRecordUsecase(repo=repo)
         with pytest.raises(EntityError):
-            criminal_record = usecase(criminal_record_id=None, new_crime_list=[
-                repo.crime_list[2], repo.crime_list[3]], new_criminal_owner=repo.criminal_list[1], new_is_arrested=True, new_prison=PRISON.STATEPRISON, new_danger_score=2)
+            criminal_record = usecase(
+                criminal_record_id=None,  new_criminal_owner=repo.criminal_list[1], new_is_arrested=True, new_prison=PRISON.STATEPRISON, new_danger_score=2)
         with pytest.raises(EntityError):
-            criminal_record = usecase(criminal_record_id=2414221412451241, new_crime_list=[
-                repo.crime_list[2], repo.crime_list[3]], new_criminal_owner=repo.criminal_list[1], new_is_arrested=True, new_prison=PRISON.STATEPRISON, new_danger_score=2)
+            criminal_record = usecase(criminal_record_id=2414221412451241,
+                                      new_criminal_owner=repo.criminal_list[1], new_is_arrested=True, new_prison=PRISON.STATEPRISON, new_danger_score=2)
         with pytest.raises(EntityError):
-            criminal_record = usecase(criminal_record_id="4d108071-6d0f-48cb-8675-5d38049c3eccccccccc", new_crime_list=[
-                repo.crime_list[2], repo.crime_list[3]], new_criminal_owner=repo.criminal_list[1], new_is_arrested=True, new_prison=PRISON.STATEPRISON, new_danger_score=2)
+            criminal_record = usecase(criminal_record_id="4d108071-6d0f-48cb-8675-5d38049c3eccccccccc",
+                                      new_criminal_owner=repo.criminal_list[1], new_is_arrested=True, new_prison=PRISON.STATEPRISON, new_danger_score=2)
 
     def test_update_criminal_record_usecase_new_is_arrested(self):
         """
@@ -60,8 +59,8 @@ class Test_UpdateCriminalRecordUsecase:
         repo = CriminalRecordRepositoryMock()
         usecase = UpdateCriminalRecordUsecase(repo=repo)
         with pytest.raises(EntityError):
-            criminal_record = usecase(criminal_record_id=repo.criminal_record_list[0].criminal_record_id, new_crime_list=[
-                repo.crime_list[2], repo.crime_list[3]], new_criminal_owner=repo.criminal_list[1], new_is_arrested=False, new_prison=PRISON.STATEPRISON, new_danger_score=2)
+            criminal_record = usecase(criminal_record_id=repo.criminal_record_list[0].criminal_record_id,
+                                      new_criminal_owner=repo.criminal_list[1], new_is_arrested=False, new_prison=PRISON.STATEPRISON, new_danger_score=2)
         with pytest.raises(EntityError):
-            criminal_record = usecase(criminal_record_id=repo.criminal_record_list[0].criminal_record_id, new_crime_list=[
-                repo.crime_list[2], repo.crime_list[3]], new_criminal_owner=repo.criminal_list[1], new_is_arrested=True, new_prison=None, new_danger_score=2)
+            criminal_record = usecase(criminal_record_id=repo.criminal_record_list[0].criminal_record_id,
+                                      new_criminal_owner=repo.criminal_list[1], new_is_arrested=True, new_prison=None, new_danger_score=2)

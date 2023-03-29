@@ -14,7 +14,7 @@ class UpdateCriminalRecordUsecase:
         """Update Criminal Record Usecase constructor instantiating the repository"""
         self.repo = repo
 
-    def __call__(self, criminal_record_id: str, new_danger_score: int, new_criminal_owner: Criminal, new_is_arrested: bool, new_prison: PRISON, new_crime_list: list[Crime]) -> CriminalRecord:
+    def __call__(self, criminal_record_id: str, new_danger_score: int, new_criminal_owner: Criminal, new_is_arrested: bool, new_prison: PRISON) -> CriminalRecord:
 
         # validation if the criminal_record_id is valid using the function validade_criminal_record_id. It raises a entity error if returns false
         if not CriminalRecord.validate_criminal_record_id(criminal_record_id=criminal_record_id):
@@ -50,8 +50,4 @@ class UpdateCriminalRecordUsecase:
         if not CriminalRecord.validate_is_arrested(new_is_arrested):
             raise EntityError("new_is_arrested")
 
-        # validation if the new_crime_list is valid using the function validade_crime_list". It raises a entity error if returns false
-        if not CriminalRecord.validate_crime_list(new_crime_list):
-            raise EntityError("new_crime_list")
-
-        return self.repo.update_criminal_record(criminal_record_id=criminal_record_id, new_crime_list=new_crime_list, new_criminal_owner=new_criminal_owner, new_danger_score=new_danger_score, new_is_arrested=new_is_arrested, new_prison=new_prison)
+        return self.repo.update_criminal_record(criminal_record_id=criminal_record_id, new_criminal_owner=new_criminal_owner, new_danger_score=new_danger_score, new_is_arrested=new_is_arrested, new_prison=new_prison)
