@@ -12,6 +12,7 @@ from src.shared.infra.repositories.criminal_record_repository_mock import Crimin
 
 class Test_CriminalRecordRepositoryMock:
 
+    # list variable of a crime_list to be used in the tests
     crime_list = [Crime(crime_id="cdccceb6-5acc-493e-8958-9907e096fa80",
                         crime_type=CRIME_TYPE.MURDER,
                         responsible_criminal=Criminal(name="Harleen Quinzel",
@@ -42,6 +43,7 @@ class Test_CriminalRecordRepositoryMock:
                         crime_description="Armed robbery against her doctor",
                         crime_region=REGION.MIAGANI_ISLAND,
                         seriousness=SERIOUSNESS.LOW)]
+    # variable of a criminal to be used in the tests
     criminal = Criminal(name="Harleen Quinzel",
                         nickname="Harley Quinn",
                         criminal_description="In time, Harley came to realize the Joker was holding her back and she struck out on her own. She became an entrepreneur and a member of several slightly less-than-reputable super teams (including the Suicide Squad), Gotham City’s all-girl gang the Gotham City Sirens, and a traveling sideshow. Along the way Harley has become one of the most popular super-villains in the DC Universe, thanks in part to her versatility, charisma and cheery-but-deranged outlook on life.",
@@ -53,6 +55,9 @@ class Test_CriminalRecordRepositoryMock:
                         height=1.60)
 
     def test_get_criminal_record(self):
+        """
+            The function that tests if the criminal record is being getted by the repository when calling the function get_criminal_record
+        """
         repo = CriminalRecordRepositoryMock()
         criminal_record = repo.get_criminal_record(
             criminal_record_id="4d108071-6d0f-48cb-8675-5d38049c3ecc")
@@ -66,6 +71,9 @@ class Test_CriminalRecordRepositoryMock:
         assert criminal_record.is_arrested == False
 
     def test_create_criminal_record(self):
+        """
+            The function that tests if the criminal record is being created by the repository when calling the function create_criminal_record
+        """
         repo = CriminalRecordRepositoryMock()
         new_criminal_record = CriminalRecord(
             criminal_owner=self.criminal,
@@ -81,6 +89,9 @@ class Test_CriminalRecordRepositoryMock:
         assert criminal_record_created == new_criminal_record
 
     def test_delete_criminal_record(self):
+        """
+            The function that tests if the criminal record is being deleted by the repository when calling the function delete_criminal_record
+        """
         repo = CriminalRecordRepositoryMock()
         criminal_record = repo.criminal_record_list[0]
 
@@ -90,6 +101,9 @@ class Test_CriminalRecordRepositoryMock:
         assert criminal_record == deleted_criminal_record
 
     def test_update_criminal_record(self):
+        """
+            The function that tests if the criminal record is being updated by the repository when calling the function update_criminal_record
+        """
         repo = CriminalRecordRepositoryMock()
 
         new_criminal_record = repo.update_criminal_record(criminal_record_id="4d108071-6d0f-48cb-8675-5d38049c3ecc", new_crime_list=self.crime_list,

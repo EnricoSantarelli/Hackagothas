@@ -52,7 +52,7 @@ class Crime(abc.ABC):
         """Crime class constructor"""
 
         # validation if the id is valid using the function validade_id. It raises a entity error if returns false
-        if not Crime.validate_id(crime_id):
+        if not Crime.validate_crime_id(crime_id):
             raise EntityError("crime_id")
         self.crime_id = crime_id
 
@@ -87,7 +87,7 @@ class Crime(abc.ABC):
         self.seriousness = seriousness
 
     @staticmethod
-    def validate_id(crime_id: str) -> bool:
+    def validate_crime_id(crime_id: str) -> bool:
         """The function that validates the id, it returns false if the id is none, the type is wrong or if its diferent of the necessary size. \n
             Example: crime_id = 2.3 -> False 
             Example: crime_id = None -> False 
