@@ -24,7 +24,7 @@ class ICriminalRecordRepository(ABC):
         pass
 
     @abstractmethod
-    def update_criminal_record(self, criminal_record_id: str, new_danger_score: int = None, new_criminal: Criminal = None, new_is_arrested: bool = None, new_prison: PRISON = None, new_crime_list: list[Crime] = None) -> CriminalRecord:
+    def update_criminal_record(self, criminal_record_id: str, new_danger_score: int = None, new_criminal_owner: Criminal = None, new_is_arrested: bool = None, new_prison: PRISON = None, new_crime_list: list[Crime] = None) -> CriminalRecord:
         """
             Abstract Function that updates and return a new criminal record of the passed criminal record id
         """
