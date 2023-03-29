@@ -1,5 +1,5 @@
-from src.modules.delete_criminal_record.app.delete_criminal_record_usecase import DeleteCriminalRecordUsecase
-from src.modules.delete_criminal_record.app.delete_criminal_record_viewmodel import DeleteCriminalRecordViewmodel
+from .delete_criminal_record_usecase import DeleteCriminalRecordUsecase
+from .delete_criminal_record_viewmodel import DeleteCriminalRecordViewmodel
 from src.shared.helpers.errors.controller_errors import MissingParameters
 from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import NoItemsFound
@@ -8,12 +8,15 @@ from src.shared.helpers.external_interfaces.http_models import HttpRequest, Http
 
 
 class DeleteCriminalRecordController:
+    """Controller of the route Delete Criminal Record"""
 
     def __init__(self, usecase: DeleteCriminalRecordUsecase):
+        """CriminalRecordController contructor instantiating the usecase"""
         self.deleteCriminalRecordUsecase = usecase
 
     def __call__(self, request: HttpRequest) -> HttpResponse:
         try:
+            # validation if the criminal_record_id is None. It raises a missing parameters if returns false
             if request.data.get("criminal_record_id") == None:
                 raise MissingParameters("criminal_record_id")
 
