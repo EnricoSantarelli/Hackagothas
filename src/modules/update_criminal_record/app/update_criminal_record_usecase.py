@@ -3,8 +3,9 @@ from src.shared.domain.entities.criminal import Criminal
 from src.shared.domain.entities.criminal_record import CriminalRecord
 from src.shared.domain.enums.prison_enum import PRISON
 from src.shared.domain.repositories.criminal_record_repository_interface import ICriminalRecordRepository
+from src.shared.helpers.errors.controller_errors import MissingParameters
 from src.shared.helpers.errors.domain_errors import EntityError
-from src.shared.helpers.errors.usecase_errors import NoItemsFound
+from src.shared.helpers.errors.usecase_errors import ExcededParameters, NoItemsFound
 
 
 class UpdateCriminalRecordUsecase:
@@ -30,9 +31,10 @@ class UpdateCriminalRecordUsecase:
 
         # validation the business rule that can't exist a prison if the criminal isn't arrested and if the criminal is arrested must exist a prison
         if new_is_arrested == False and new_prison != None:
-            raise EntityError("new_prison")
+            raise ExcededParameters(
+                "The parameter is_arrested must be true if you pass a prison!")
         if new_is_arrested == True and criminal_record.prison == None and new_prison == None:
-            raise EntityError("new_prison")
+            raise MissingParameters("new_prison")
 
         # validation if the new_prison is valid using the function validade_prison. It raises a entity error if returns false
         if not CriminalRecord.validate_prison(new_prison):

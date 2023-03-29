@@ -12,6 +12,8 @@ from src.shared.domain.enums.region_enum import REGION
 from src.shared.domain.enums.seriousness_enum import SERIOUSNESS
 from src.shared.helpers.errors.controller_errors import MissingParameters
 from src.shared.helpers.errors.domain_errors import EntityError
+from src.shared.helpers.errors.usecase_errors import NoItemsFound
+from src.shared.helpers.external_interfaces.http_codes import BadRequest, InternalServerError, NotFound
 from src.shared.helpers.external_interfaces.http_models import HttpRequest, HttpResponse
 
 
@@ -26,7 +28,7 @@ class UpdateCriminalRecordController:
         try:
             # validation if the criminal_record_id is None. It raises a missing parameters if returns false
             if not request.data.get('criminal_record_id'):
-                raise MissingParameters('danger_score')
+                raise MissingParameters('criminal_record_id')
             # validation if the danger_score is None. It raises a missing parameters if returns false
             if not request.data.get('danger_score'):
                 raise MissingParameters('danger_score')
@@ -36,9 +38,21 @@ class UpdateCriminalRecordController:
             # validation if the is_arrested is None. It raises a missing parameters if returns false
             if not request.data.get('is_arrested'):
                 raise MissingParameters('is_arrested')
-            # validation if the prison is None. It raises a missing parameters if returns false
-            if not request.data.get('prison'):
-                raise MissingParameters('prison')
+            # validation if the age is None. It raises a missing parameters if returns false
+            if not request.data.get('age'):
+                raise MissingParameters('age')
+            # validation if the criminal_description is None. It raises a missing parameters if returns false
+            if not request.data.get('criminal_description'):
+                raise MissingParameters('criminal_description')
+            # validation if the name is None. It raises a missing parameters if returns false
+            if not request.data.get('name'):
+                raise MissingParameters('name')
+            # validation if the nickname is None. It raises a missing parameters if returns false
+            if not request.data.get('nickname'):
+                raise MissingParameters('nickname')
+            # validation if the weight is None. It raises a missing parameters if returns false
+            if not request.data.get('weight'):
+                raise MissingParameters('weight')
 
             gender_values = [val.value for val in GENDER]
             if request.data.get("gender") not in gender_values:
@@ -60,26 +74,27 @@ class UpdateCriminalRecordController:
                 raise EntityError("blood_type")
             blood_type = BLOOD_TYPE[request.data.get("blood_type")]
 
-            seriousness_values = [val.value for val in SERIOUSNESS]
-            if request.data.get("seriousness") not in seriousness_values:
-                raise EntityError("seriousness")
-            seriousness = SERIOUSNESS[request.data.get("seriousness")]
-
             prison_values = [val.value for val in PRISON]
             if request.data.get("prison") not in prison_values:
                 raise EntityError("prison")
             prison = PRISON[request.data.get("prison")]
 
-            crime_type_values = [val.value for val in CRIME_TYPE]
-            if request.data.get("crime_type") not in crime_type_values:
-                raise EntityError("crime_type")
-            crime_type = CRIME_TYPE[request.data.get("crime_type")]
-
             criminal = Criminal(age=request.data.get("age"), blood_type=blood_type, criminal_description=request.data.get("criminal_description"), criminal_region=criminal_region,
                                 gender=gender, height=request.data.get("height"), name=request.data.get("name"), nickname=request.data.get("nickname"), weight=request.data.get("weight"))
-            crime = Crime(crime_description=request.data.get("description"), crime_id=request.data.get("crime_id"), crime_region=crime_region, crime_type=crime_type,
-                          date=request.data.get("date"), responsible_criminal=criminal, seriousness=seriousness)
             criminal_record = CriminalRecord(criminal_owner=criminal, criminal_record_id=request.data.get(
                 "criminal_record_id"), danger_score=request.data.get("danger_score"), is_arrested=request.data.get("is_arrested"), prison=prison)
+            viewmodel = UpdateCriminalRecordViewmodel(criminal_record)
 
             return OK(viewmodel.to_dict())
+
+        except NoItemsFound as err:
+            return NotFound(body=err.message)
+
+        except MissingParameters as err:
+            return BadRequest(body=err.message)
+
+        except EntityError as err:
+            return BadRequest(body=err.message)
+
+        except Exception as err:
+            return InternalServerError(body=err.args[0])
