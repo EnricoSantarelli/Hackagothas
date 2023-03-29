@@ -13,9 +13,9 @@ class CriminalViewmodel:
     """Viewmodel responsible for translate the criminal into a json"""
     name: str
     nickname: str
-    description: str
+    criminal_description: str
     gender: GENDER
-    region: REGION
+    criminal_region: REGION
     blood_type: BLOOD_TYPE
     age: int
     weight: float
@@ -27,11 +27,11 @@ class CriminalViewmodel:
         self.nickname = criminal.nickname
         self.age = criminal.age
         self.blood_type = criminal.blood_type.value
-        self.description = criminal.description
+        self.criminal_description = criminal.criminal_description
         self.gender = criminal.gender.value
         self.height = criminal.height
         self.weight = criminal.weight
-        self.region = criminal.region.value
+        self.criminal_region = criminal.criminal_region.value
 
     def to_dict(self):
         """
@@ -42,32 +42,33 @@ class CriminalViewmodel:
             "nickname": self.nickname,
             "age": self.age,
             "blood_type": self.blood_type,
-            "description": self.description,
+            "criminal_description": self.criminal_description,
             "gender": self.gender,
             "height": self.height,
             "weight": self.weight,
-            "region": self.region
+            "criminal_description": self.criminal_region
         }
 
 
 class CrimeViewmodel:
     """Viewmodel responsible for translate the crime into a json"""
     crime_id: str
-    description: str
+    crime_description: str
     date: int
-    criminal: CriminalViewmodel
+    responsible_criminal: CriminalViewmodel
     crime_type: CRIME_TYPE
-    region: REGION
+    crime_region: REGION
     seriousness: SERIOUSNESS
 
     def __init__(self, crime: Crime):
         """Crime Viewmodel constructor"""
         self.crime_id = crime.crime_id
         self.crime_type = crime.crime_type.value
-        self.criminal = CriminalViewmodel(crime.criminal)
+        self.responsible_criminal = CriminalViewmodel(
+            crime.responsible_criminal)
         self.date = crime.date
-        self.description = crime.description
-        self.region = crime.region.value
+        self.crime_description = crime.crime_description
+        self.crime_region = crime.crime_region.value
         self.seriousness = crime.seriousness.value
 
     def to_dict(self):
@@ -77,10 +78,10 @@ class CrimeViewmodel:
         return {
             "crime_id": self.crime_id,
             "crime_type": self.crime_type,
-            "criminal": self.criminal.to_dict(),
+            "responsible_criminal": self.responsible_criminal.to_dict(),
             "date": self.date,
-            "description": self.description,
-            "region": self.region,
+            "crime_description": self.crime_description,
+            "crime_region": self.crime_region,
             "seriousness": self.seriousness
         }
 
@@ -89,7 +90,7 @@ class CriminalRecordViewmodel:
     """Viewmodel responsible for translate the criminal record into a json"""
     criminal_record_id: str
     danger_score: int
-    criminal: CriminalViewmodel
+    criminal_owner: CriminalViewmodel
     is_arrested: bool
     prison: PRISON
     crime_list: list[CrimeViewmodel]
@@ -99,7 +100,7 @@ class CriminalRecordViewmodel:
         self.criminal_record_id = criminal_record.criminal_record_id
         self.crime_list = [CrimeViewmodel(crime)
                            for crime in criminal_record.crime_list]
-        self.criminal = CriminalViewmodel(criminal_record.criminal)
+        self.criminal_owner = CriminalViewmodel(criminal_record.criminal_owner)
         self.danger_score = criminal_record.danger_score
         self.is_arrested = criminal_record.is_arrested
         if (criminal_record.prison == None):
@@ -114,7 +115,7 @@ class CriminalRecordViewmodel:
         return {
             'criminal_record_id': self.criminal_record_id,
             'crime_list': [(crime.to_dict()) for crime in self.crime_list],
-            'criminal': self.criminal.to_dict(),
+            'criminal_owner': self.criminal_owner.to_dict(),
             'danger_score': self.danger_score,
             'is_arrested': self.is_arrested,
             'prison': self.prison,
