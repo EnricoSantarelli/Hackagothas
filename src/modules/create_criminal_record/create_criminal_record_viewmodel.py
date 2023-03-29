@@ -16,7 +16,7 @@ class CrimeViewmodel:
             Example: c303282d-f2e6-46ca-a04a-35d3d873712d 
     """
 
-    description: str
+    crime_description: str
     """The description of how the crime occurred. \n
             Example: The crime was extremely violent, leaving 6 citizens injured and 2 dead. The author left few clues behind.
     """
@@ -24,9 +24,9 @@ class CrimeViewmodel:
     date: int  # miliseconds
     """The date the crime occurred. \n
             Example: 1585312648914
-        """
+    """
 
-    criminal: Criminal
+    responsible_criminal: Criminal
     """The author of the crime. \n
             Example: Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90)
     """
@@ -36,7 +36,7 @@ class CrimeViewmodel:
             Example: Murder
     """
 
-    region: REGION
+    crime_region: REGION
     """The region in which the crime ocurred. \n
             Example: Industrial District. 
     """
@@ -48,21 +48,21 @@ class CrimeViewmodel:
 
     def __init__(self, crime: Crime):
         self.crime_id = crime.crime_id
-        self.description = crime.description
+        self.crime_description = crime.crime_description
         self.date = crime.date
-        self.criminal = crime.criminal
+        self.responsible_criminal = crime.responsible_criminal
         self.crime_type = crime.crime_type
-        self.region = crime.region
+        self.crime_region = crime.crime_region
         self.seriousness = crime.seriousness
 
     def to_dict(self) -> dict:
         return {
             "crime_id": self.crime_id,
-            "description": self.description,
+            "crime_description": self.crime_description,
             "date": self.date,
-            "criminal": self.criminal,
+            "responsible_criminal": self.responsible_criminal,
             "crime_type": self.crime_type,
-            "region": self.region,
+            "crime_region": self.crime_region,
             "seriousness": self.seriousness,
         }
 
@@ -79,7 +79,7 @@ class CriminalViewmodel:
             Example: Joker 
     """
 
-    description: str
+    criminal_description: str
     """The description of the criminal. It is not required. \n
             Example: A complete psychopath with no moral compass whatsoever, the Joker, is characterized by his chalk-white skin, green hair and a permanent rictus grin stretched across his face. But there isn’t a single thing funny about this particular clown, who only finds humor in the suffering of others. 
     """
@@ -115,11 +115,12 @@ class CriminalViewmodel:
     """
 
     def __init__(self, criminal: Criminal):
+        """Criminal Viewmodel constructor"""
         self.name = criminal.name
         self.nickname = criminal.nickname
-        self.description = criminal.description
+        self.criminal_description = criminal.criminal_description
         self.gender = criminal.gender
-        self.region = criminal.region
+        self.criminal_region = criminal.criminal_region
         self.blood_type = criminal.blood_type
         self.age = criminal.age
         self.weight = criminal.weight
@@ -129,9 +130,9 @@ class CriminalViewmodel:
         return {
             "name": self.name,
             "nickname": self.nickname,
-            "description": self.description,
+            "criminal_description": self.criminal_description,
             "gender": self.gender,
-            "region": self.region,
+            "criminal_region": self.criminal_region,
             "blood_type": self.blood_type,
             "age": self.age,
             "weight": self.weight,
@@ -151,7 +152,7 @@ class CriminalRecordViewmodel:
             Example: 4. 
     """
 
-    criminal: Criminal
+    criminal_owner: Criminal
     """The author of the crime. \n
             Example: Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90)
     """
@@ -166,31 +167,21 @@ class CriminalRecordViewmodel:
             Example: PRISON.BLACKGATE. 
     """
 
-    crime_list: list[CrimeViewmodel]
-    """The list of crimes the criminal commited. 
-        Example: [Crime(id="c303282d-f2e6-46ca-a04a-35d3d873712d", description="The crime was extremely violent, leaving 6 citizens injured and 2 dead. The author left few clues behind.",
-              date=1585312648914, criminal=Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90),
-              crime_type=CRIME_TYPE.ARSON, region=REGION.AMUSEMENT_MILE, seriousness=SERIOUSNESS.HIGH, Crime(id="c303282d-f2e6-46ca-a04a-35d3d873712d", description="The crime was extremely violent, leaving 6 citizens injured and 2 dead. The author left few clues behind.",
-              date=1585312648914, criminal=Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90),
-              crime_type=CRIME_TYPE.ARSON, region=REGION.AMUSEMENT_MILE, seriousness=SERIOUSNESS.HIGH))]
-    """
 
     def __init__(self, criminal_record: CriminalRecord):
         self.criminal_record_id = criminal_record.criminal_record_id
         self.danger_score = criminal_record.danger_score
-        self.criminal = criminal_record.criminal
+        self.criminal_owner = criminal_record.criminal_owner
         self.is_arrested = criminal_record.is_arrested
         self.prison = criminal_record.prison
-        self.crime_list = [CrimeViewmodel(crime) for crime in criminal_record.crime_list]
 
 def to_dict(self) -> dict:
         return {
             "criminal_record_id": self.criminal_record_id,
             "danger_score": self.danger_score,
-            "criminal": self.criminal,
+            "criminal_owner": self.criminal_owner,
             "is_arrested": self.is_arrested,
             "prison": self.prison,
-            "crime_list": [(crime.to_dict()) for crime in self.crime_list],
         }
 
 class CreateCriminalRecordViewlModel:
