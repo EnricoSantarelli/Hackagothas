@@ -2,8 +2,9 @@ import pytest
 from src.modules.update_criminal_record.app.update_criminal_record_usecase import UpdateCriminalRecordUsecase
 from src.shared.domain.entities.criminal_record import CriminalRecord
 from src.shared.domain.enums.prison_enum import PRISON
+from src.shared.helpers.errors.controller_errors import MissingParameters
 from src.shared.helpers.errors.domain_errors import EntityError
-from src.shared.helpers.errors.usecase_errors import NoItemsFound
+from src.shared.helpers.errors.usecase_errors import ExcededParameters, NoItemsFound
 from src.shared.infra.repositories.criminal_record_repository_mock import CriminalRecordRepositoryMock
 
 
@@ -58,9 +59,9 @@ class Test_UpdateCriminalRecordUsecase:
         """
         repo = CriminalRecordRepositoryMock()
         usecase = UpdateCriminalRecordUsecase(repo=repo)
-        with pytest.raises(EntityError):
+        with pytest.raises(ExcededParameters):
             criminal_record = usecase(criminal_record_id=repo.criminal_record_list[0].criminal_record_id,
                                       new_criminal_owner=repo.criminal_list[1], new_is_arrested=False, new_prison=PRISON.STATEPRISON, new_danger_score=2)
-        with pytest.raises(EntityError):
+        with pytest.raises(MissingParameters):
             criminal_record = usecase(criminal_record_id=repo.criminal_record_list[0].criminal_record_id,
                                       new_criminal_owner=repo.criminal_list[1], new_is_arrested=True, new_prison=None, new_danger_score=2)

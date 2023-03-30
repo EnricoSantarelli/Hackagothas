@@ -22,10 +22,11 @@ class Test_UpdateCriminalRecordViewmodel:
                     "nickname": "Anarky",
                     "age": 16,
                     "blood_type": "Undefined",
-                    "criminal_description": "New Gotham",
+                    "criminal_description": "Anarky uses his abilities to bring down any corporation or authoritative entity that he feels hurts and oppresses people. While he can throw a punch as well as anyone, he relies primarily on his thorough understanding of modern technology to defeat his foes along with the very essence of anarchy itself—surprise.",
                     "gender": "Male",
                     "height": 1.7,
-                    "weight": 75.2
+                    "weight": 75.2,
+                    "criminal_region": "New Gotham"
                 },
                 "danger_score": 3,
                 "is_arrested": False,

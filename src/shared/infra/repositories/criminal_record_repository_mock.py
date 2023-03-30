@@ -192,7 +192,7 @@ class CriminalRecordRepositoryMock(ICriminalRecordRepository):
 
         raise NoItemsFound("criminal_record_id")
 
-    def update_criminal_record(self, criminal_record_id: str, new_danger_score: int = None, new_criminal_owner: Criminal = None, new_is_arrested: bool = None, new_prison: PRISON = None, new_crime_list: List[Crime] = None) -> CriminalRecord:
+    def update_criminal_record(self, criminal_record_id: str, new_danger_score: int = None, new_criminal_owner: Criminal = None, new_is_arrested: bool = None, new_prison: PRISON = None) -> CriminalRecord:
         """
             Function that updates and return a new criminal record of the passed criminal record id
         """
@@ -206,9 +206,7 @@ class CriminalRecordRepositoryMock(ICriminalRecordRepository):
                     criminal_record.is_arrested = new_is_arrested
                 if new_prison is not None:
                     criminal_record.prison = new_prison
-                if new_crime_list is not None:
-                    criminal_record.crime_list = new_crime_list
 
                 return criminal_record
 
-            return None
+        return None

@@ -1,12 +1,9 @@
-from src.shared.domain.entities.crime import Crime
 from src.shared.domain.entities.criminal import Criminal
 from src.shared.domain.entities.criminal_record import CriminalRecord
 from src.shared.domain.enums.blood_type_enum import BLOOD_TYPE
-from src.shared.domain.enums.crime_type_enum import CRIME_TYPE
 from src.shared.domain.enums.gender_enum import GENDER
 from src.shared.domain.enums.prison_enum import PRISON
 from src.shared.domain.enums.region_enum import REGION
-from src.shared.domain.enums.seriousness_enum import SERIOUSNESS
 
 
 class CriminalViewmodel:
@@ -46,43 +43,7 @@ class CriminalViewmodel:
             "gender": self.gender,
             "height": self.height,
             "weight": self.weight,
-            "criminal_description": self.criminal_region
-        }
-
-
-class CrimeViewmodel:
-    """Viewmodel responsible for translate the crime into a json"""
-    crime_id: str
-    crime_description: str
-    date: int
-    responsible_criminal: CriminalViewmodel
-    crime_type: CRIME_TYPE
-    crime_region: REGION
-    seriousness: SERIOUSNESS
-
-    def __init__(self, crime: Crime):
-        """Crime Viewmodel constructor"""
-        self.crime_id = crime.crime_id
-        self.crime_type = crime.crime_type.value
-        self.responsible_criminal = CriminalViewmodel(
-            crime.responsible_criminal)
-        self.date = crime.date
-        self.crime_description = crime.crime_description
-        self.crime_region = crime.crime_region.value
-        self.seriousness = crime.seriousness.value
-
-    def to_dict(self):
-        """
-            Function responsible to translate the crime into a json
-        """
-        return {
-            "crime_id": self.crime_id,
-            "crime_type": self.crime_type,
-            "responsible_criminal": self.responsible_criminal.to_dict(),
-            "date": self.date,
-            "crime_description": self.crime_description,
-            "crime_region": self.crime_region,
-            "seriousness": self.seriousness
+            "criminal_region": self.criminal_region
         }
 
 
