@@ -1,12 +1,9 @@
-from src.shared.domain.entities.crime import Crime
 from src.shared.domain.entities.criminal import Criminal
 from src.shared.domain.entities.criminal_record import CriminalRecord
 from src.shared.domain.enums.blood_type_enum import BLOOD_TYPE
-from src.shared.domain.enums.crime_type_enum import CRIME_TYPE
 from src.shared.domain.enums.gender_enum import GENDER
 from src.shared.domain.enums.prison_enum import PRISON
 from src.shared.domain.enums.region_enum import REGION
-from src.shared.domain.enums.seriousness_enum import SERIOUSNESS
 
 
 class CriminalViewmodel:
@@ -50,42 +47,6 @@ class CriminalViewmodel:
         }
 
 
-class CrimeViewmodel:
-    """Viewmodel responsible for translate the crime into a json"""
-    crime_id: str
-    crime_description: str
-    date: int
-    responsible_criminal: CriminalViewmodel
-    crime_type: CRIME_TYPE
-    crime_region: REGION
-    seriousness: SERIOUSNESS
-
-    def __init__(self, crime: Crime):
-        """Crime Viewmodel constructor"""
-        self.crime_id = crime.crime_id
-        self.crime_type = crime.crime_type.value
-        self.responsible_criminal = CriminalViewmodel(
-            crime.responsible_criminal)
-        self.date = crime.date
-        self.crime_description = crime.crime_description
-        self.crime_region = crime.crime_region.value
-        self.seriousness = crime.seriousness.value
-
-    def to_dict(self):
-        """
-            Function responsible to translate the crime into a json
-        """
-        return {
-            "crime_id": self.crime_id,
-            "crime_type": self.crime_type,
-            "responsible_criminal": self.responsible_criminal.to_dict(),
-            "date": self.date,
-            "crime_description": self.crime_description,
-            "crime_region": self.crime_region,
-            "seriousness": self.seriousness
-        }
-
-
 class CriminalRecordViewmodel:
     """Viewmodel responsible for translate the criminal record into a json"""
     criminal_record_id: str
@@ -93,13 +54,10 @@ class CriminalRecordViewmodel:
     criminal_owner: CriminalViewmodel
     is_arrested: bool
     prison: PRISON
-    crime_list: list[CrimeViewmodel]
 
     def __init__(self, criminal_record: CriminalRecord):
         """Criminal Record Viewmodel constructor"""
         self.criminal_record_id = criminal_record.criminal_record_id
-        self.crime_list = [CrimeViewmodel(crime)
-                           for crime in criminal_record.crime_list]
         self.criminal_owner = CriminalViewmodel(criminal_record.criminal_owner)
         self.danger_score = criminal_record.danger_score
         self.is_arrested = criminal_record.is_arrested
@@ -114,7 +72,6 @@ class CriminalRecordViewmodel:
         """
         return {
             'criminal_record_id': self.criminal_record_id,
-            'crime_list': [(crime.to_dict()) for crime in self.crime_list],
             'criminal_owner': self.criminal_owner.to_dict(),
             'danger_score': self.danger_score,
             'is_arrested': self.is_arrested,
@@ -122,19 +79,19 @@ class CriminalRecordViewmodel:
         }
 
 
-class DeleteCriminalRecordViewmodel:
-    """Viewmodel responsible for translate the criminal record with a message into a json when the criminal record is deleted"""
+class UpdateCriminalRecordViewmodel:
+    """Viewmodel responsible for translate the criminal record with a message into a json when the criminal record is updated"""
     criminal_record: CriminalRecordViewmodel
 
     def __init__(self, criminal_record: CriminalRecord):
-        """Delete Criminal Record Viewmodel constructor"""
+        """Update Criminal Record Viewmodel constructor"""
         self.criminal_record = CriminalRecordViewmodel(criminal_record)
 
     def to_dict(self):
         """
-            Function responsible to translate the criminal record with a message into a json when the criminal record is deleted
+            Function responsible to translate the criminal record with a message into a json when the criminal record is updated
         """
         return {
             "criminal_record": self.criminal_record.to_dict(),
-            "message": 'the criminal record was deleted'
+            "message": 'the criminal record was updated'
         }

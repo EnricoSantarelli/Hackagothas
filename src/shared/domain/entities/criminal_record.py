@@ -52,7 +52,7 @@ class CriminalRecord(abc.ABC):
 
     ID_LENGTH = 36
 
-    def __init__(self, criminal_owner: Criminal, criminal_record_id: str, danger_score: int, is_arrested: bool, crime_list: list[Crime], prison: PRISON = None):
+    def __init__(self, criminal_owner: Criminal, criminal_record_id: str, danger_score: int, is_arrested: bool, crime_list: list[Crime] = None, prison: PRISON = None):
         """Criminal Record class constructor"""
 
         # validation if the criminal is valid using the function validade_criminal. It raises a entity error if returns false
@@ -159,9 +159,7 @@ class CriminalRecord(abc.ABC):
             Example: crime_list = "" -> False 
             Example: crime_list = False -> True 
         """
-        if crime_list is None:
-            return False
-        elif not all([type(crime) == Crime for crime in crime_list]):
+        if not all([type(crime) == Crime for crime in crime_list]):
             return False
         elif crime_list == []:
             return False
