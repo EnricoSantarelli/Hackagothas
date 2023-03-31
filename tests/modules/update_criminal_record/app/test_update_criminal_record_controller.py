@@ -16,17 +16,17 @@ class Test_UpdateCriminalRecordController:
                 "criminal_record_id": "4d108071-6d0f-48cb-8675-5d38049c3ecc",
                 "new_danger_score": 2,
                 "new_is_arrested": True,
-                "new_prison": "Penitenciária Blackgate",
+                "new_prison": "BLACKGATE",
                 "new_criminal_owner": {
                     "name": "Edward Nigma",
                     "nickname": "Riddler",
                     "age": 30,
-                    "blood_type": "AB+",
-                    "gender": "Male",
+                    "blood_type": "AB_PLUS",
+                    "gender": "MALE",
                     "criminal_description": "A complete psychopath with no moral compass whatsoever, Riddler, is characterized by his charades and riddles, which he uses to taunt his enemies and to show off his intelligence.",
                     "height": 1.82,
                     "weight": 80.3,
-                    "criminal_region": "New Gotham"
+                    "criminal_region": "NEW_GOTHAM"
                 }
             })
 
@@ -37,13 +37,13 @@ class Test_UpdateCriminalRecordController:
         assert response.body['criminal_record']['criminal_record_id'] == "4d108071-6d0f-48cb-8675-5d38049c3ecc"
         assert response.body['criminal_record']['danger_score'] == 2
         assert response.body['criminal_record']['is_arrested'] == True
-        assert response.body['criminal_record']['prison'] == "Penitenciária Blackgate"
+        assert response.body['criminal_record']['prison'] == "BLACKGATE"
         assert response.body['criminal_record']['criminal_owner']['name'] == "Edward Nigma"
         assert response.body['criminal_record']['criminal_owner']['nickname'] == "Riddler"
         assert response.body['criminal_record']['criminal_owner']['age'] == 30
-        assert response.body['criminal_record']['criminal_owner']['blood_type'] == "AB+"
-        assert response.body['criminal_record']['criminal_owner']['gender'] == "Male"
+        assert response.body['criminal_record']['criminal_owner']['blood_type'] == "AB_PLUS"
+        assert response.body['criminal_record']['criminal_owner']['gender'] == "MALE"
         assert response.body['criminal_record']['criminal_owner']['criminal_description'] == "A complete psychopath with no moral compass whatsoever, Riddler, is characterized by his charades and riddles, which he uses to taunt his enemies and to show off his intelligence."
         assert response.body['criminal_record']['criminal_owner']['height'] == 1.82
         assert response.body['criminal_record']['criminal_owner']['weight'] == 80.3
-        assert response.body['criminal_record']['criminal_owner']['criminal_region'] == "New Gotham"
+        assert response.body['criminal_record']['criminal_owner']['criminal_region'] == "NEW_GOTHAM"
