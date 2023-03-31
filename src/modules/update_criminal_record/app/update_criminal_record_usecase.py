@@ -1,4 +1,3 @@
-from src.shared.domain.entities.crime import Crime
 from src.shared.domain.entities.criminal import Criminal
 from src.shared.domain.entities.criminal_record import CriminalRecord
 from src.shared.domain.enums.prison_enum import PRISON

@@ -1,6 +1,6 @@
 from src.shared.helpers.external_interfaces.http_codes import OK
-from src.modules.update_criminal_record.app.update_criminal_record_usecase import UpdateCriminalRecordUsecase
-from src.modules.update_criminal_record.app.update_criminal_record_viewmodel import UpdateCriminalRecordViewmodel
+from .update_criminal_record_usecase import UpdateCriminalRecordUsecase
+from .update_criminal_record_viewmodel import UpdateCriminalRecordViewmodel
 from src.shared.domain.entities.criminal import Criminal
 from src.shared.domain.enums.blood_type_enum import BLOOD_TYPE
 from src.shared.domain.enums.gender_enum import GENDER
@@ -23,7 +23,7 @@ class UpdateCriminalRecordController:
     def __call__(self, request: HttpRequest) -> HttpResponse:
         try:
             # validation if the criminal_data is a dict when is not None. It raises a missing parameters if returns false
-            criminal_data = request.body.get('new_criminal_owner')
+            criminal_data = request.data.get('new_criminal_owner')
             if not isinstance(criminal_data, dict) and criminal_data:
                 raise EntityError('new_criminal_owner')
 
@@ -66,9 +66,6 @@ class UpdateCriminalRecordController:
             # validation if the weight is None. It raises a missing parameters if returns false
             if not request.data.get('new_criminal_owner').get('weight'):
                 raise MissingParameters('weight')
-            # validation if the weight is None. It raises a missing parameters if returns false
-            if not request.data.get('new_criminal_owner').get('weight'):
-                raise MissingParameters('weight')
             # validation if the gender is None. It raises a missing parameters if returns false
             if not request.data.get('new_criminal_owner').get('gender'):
                 raise MissingParameters('gender')
@@ -96,16 +93,8 @@ class UpdateCriminalRecordController:
                 "new_criminal_owner").get("gender")]
 
             try:
-                new_criminal_owner = Criminal(
-                    name=criminal_data['name'],
-                    nickname=criminal_data['nickname'],
-                    age=criminal_data['age'],
-                    blood_type=BLOOD_TYPE(criminal_data['blood_type']),
-                    gender=GENDER(criminal_data['gender']),
-                    criminal_description=criminal_data['criminal_description'],
-                    height=criminal_data['height'],
-                    weight=criminal_data['weight'],
-                    criminal_region=REGION(criminal_data['criminal_region']))
+                new_criminal_owner = Criminal(age=criminal_data['age'], blood_type=new_blood_type, name=criminal_data['name'], nickname=criminal_data['nickname'], criminal_description=criminal_data['criminal_description'],
+                                              criminal_region=new_region, gender=new_gender, height=criminal_data['height'], weight=criminal_data['weight'])
             except:
                 raise EntityError('new_criminal_owner')
 
@@ -114,8 +103,6 @@ class UpdateCriminalRecordController:
             if not all(key in valid_keys for key in criminal_data.keys()):
                 raise EntityError('new_criminal_owner')
 
-            new_criminal_owner = Criminal(age=request.data.get("new_criminal_owner").get("age"), blood_type=new_blood_type, name=request.data.get("new_criminal_owner").get("name"), nickname=request.data.get("new_criminal_owner").get("nickname"), criminal_description=request.data.get("new_criminal_owner").get(
-                "criminal_description"), criminal_region=new_region, gender=new_gender, height=request.data.get("new_criminal_owner").get("height"), weight=request.data.get("new_criminal_owner").get("weight"))
             new_criminal_record = self.updateCriminalRecordUsecase(new_criminal_owner=new_criminal_owner, criminal_record_id=request.data.get(
                 "criminal_record_id"), new_danger_score=request.data.get("new_danger_score"), new_is_arrested=request.data.get("new_is_arrested"), new_prison=new_prison)
 

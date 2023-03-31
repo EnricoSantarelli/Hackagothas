@@ -53,7 +53,7 @@ class Test_DeleteCriminalRecordPresenter:
         assert json.loads(
             response["body"]) == "No items found for criminal_record_id"
 
-    def test_delete_criminal_record_presenter_no_items_found(self):
+    def test_delete_criminal_record_presenter_wrong_criminal_record_id_type(self):
         """
             The function that tests if the criminal record presenter response is raising an entity error if the type of the criminal record id is wrong
         """
