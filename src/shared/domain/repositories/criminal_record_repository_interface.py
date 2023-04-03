@@ -36,3 +36,10 @@ class ICriminalRecordRepository(ABC):
             Abstract function that delete a criminal record of the list criminal_records
         """
         pass
+
+    @abstractmethod
+    def get_all_criminal_records(self) -> list[CriminalRecord]:
+        """
+            Abstract function that returns all the criminal records
+        """
+        pass

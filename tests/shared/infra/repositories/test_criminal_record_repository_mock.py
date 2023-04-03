@@ -113,3 +113,12 @@ class Test_CriminalRecordRepositoryMock:
         assert new_criminal_record.is_arrested == True
         assert new_criminal_record.prison == PRISON.ARKHAMASILUM
         assert new_criminal_record.danger_score == 2
+
+    def test_get_all_criminal_records(self):
+        """
+            The function that tests if the criminal record list is being getted by the repository when calling the function get_all_criminal_records
+        """
+        repo = CriminalRecordRepositoryMock()
+        criminal_record_list = repo.get_all_criminal_records()
+
+        assert criminal_record_list == repo.criminal_record_list
