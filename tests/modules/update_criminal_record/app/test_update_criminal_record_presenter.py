@@ -13,18 +13,18 @@ class Test_UpdateCriminalRecordPresenter:
         event = {
             'body': {
                 "criminal_record_id": "4d108071-6d0f-48cb-8675-5d38049c3ecc",
-                "new_danger_score": 2,
-                "new_is_arrested": True,
+                "new_danger_score": "2",
+                "new_is_arrested": "True",
                 "new_prison": "BLACKGATE",
                 "new_criminal_owner": {
                     "name": "Edward Nigma",
                     "nickname": "Riddler",
-                    "age": 30,
+                    "age": "30",
                     "blood_type": "AB_PLUS",
                     "gender": "MALE",
                     "criminal_description": "A complete psychopath with no moral compass whatsoever, Riddler, is characterized by his charades and riddles, which he uses to taunt his enemies and to show off his intelligence.",
-                    "height": 1.82,
-                    "weight": 80.3,
+                    "height": "1.82",
+                    "weight": "80.3",
                     "criminal_region": "AMUSEMENT_MILE"
                 }
             }
@@ -63,18 +63,18 @@ class Test_UpdateCriminalRecordPresenter:
         event = {
             'body': {
                 "criminal_record_id": "4d108071-6d0f-48cb-8675-5d38049c3e66",
-                "new_danger_score": 2,
-                "new_is_arrested": True,
+                "new_danger_score": "2",
+                "new_is_arrested": "True",
                 "new_prison": "BLACKGATE",
                 "new_criminal_owner": {
                     "name": "Edward Nigma",
                     "nickname": "Riddler",
-                    "age": 30,
+                    "age": "30",
                     "blood_type": "AB_PLUS",
                     "gender": "MALE",
                     "criminal_description": "A complete psychopath with no moral compass whatsoever, Riddler, is characterized by his charades and riddles, which he uses to taunt his enemies and to show off his intelligence.",
-                    "height": 1.82,
-                    "weight": 80.3,
+                    "height": "1.82",
+                    "weight": "80.3",
                     "criminal_region": "AMUSEMENT_MILE"
                 }
             }
@@ -122,18 +122,18 @@ class Test_UpdateCriminalRecordPresenter:
         event = {
             'body': {
                 "criminal_record_id": 241125215124214,
-                "new_danger_score": 2,
-                "new_is_arrested": True,
+                "new_danger_score": "2",
+                "new_is_arrested": "True",
                 "new_prison": "BLACKGATE",
                 "new_criminal_owner": {
                     "name": "Edward Nigma",
                     "nickname": "Riddler",
-                    "age": 30,
+                    "age": "30",
                     "blood_type": "AB_PLUS",
                     "gender": "MALE",
                     "criminal_description": "A complete psychopath with no moral compass whatsoever, Riddler, is characterized by his charades and riddles, which he uses to taunt his enemies and to show off his intelligence.",
-                    "height": 1.82,
-                    "weight": 80.3,
+                    "height": "1.82",
+                    "weight": "80.3",
                     "criminal_region": "AMUSEMENT_MILE"
                 }
             }
