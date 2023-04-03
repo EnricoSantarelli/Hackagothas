@@ -26,7 +26,7 @@ class UpdateCriminalRecordController:
             criminal_data = request.data.get('new_criminal_owner')
             if not isinstance(criminal_data, dict) and criminal_data:
                 raise EntityError('new_criminal_owner')
-
+            
             # validation if the criminal_record_id is None. It raises a missing parameters if returns false
             if not request.data.get('criminal_record_id'):
                 raise MissingParameters('criminal_record_id')
@@ -70,6 +70,41 @@ class UpdateCriminalRecordController:
             if not request.data.get('new_criminal_owner').get('gender'):
                 raise MissingParameters('gender')
 
+            # validation if the danger_score is decimal. It raises a entity error if returns false
+            new_danger_score = request.data.get('new_danger_score')
+            if not new_danger_score.isdecimal():
+                raise EntityError('new_danger_score')
+            else:
+                new_danger_score = int(new_danger_score)
+
+            # validation if the age is decimal. It raises a entity error if returns false
+            new_age = request.data.get('new_criminal_owner').get('age')
+            if not new_age.isdecimal():
+                raise EntityError('new_age')
+            else:
+                new_age = int(new_age)
+
+            # validation if the height is float. It raises a entity error if returns false
+            new_height = request.data.get('new_criminal_owner').get('height')
+            try:
+                new_height = float(new_height)
+            except:
+                raise EntityError('new_height')
+
+            # validation if the weight is float. It raises a entity error if returns false
+            new_weight = request.data.get('new_criminal_owner').get('weight')
+            try:
+                new_weight = float(new_weight)
+            except:
+                raise EntityError('new_weight')
+
+            # validation if the new_is_arrested is bool. It raises a entity error if returns false
+            new_is_arrested = request.data.get('new_is_arrested')
+            if new_is_arrested.lower() != 'true' and new_is_arrested.lower() != 'false':
+                raise EntityError('new_is_arrested')
+            else:
+                new_is_arrested = bool(new_is_arrested)
+
             # validation if the type of the new_prison is wrong. It raises a entity error if returns false
             if request.data.get("new_prison") not in [prison_value.value for prison_value in PRISON]:
                 raise EntityError('new_prison')
@@ -92,19 +127,19 @@ class UpdateCriminalRecordController:
             new_gender = GENDER[request.data.get(
                 "new_criminal_owner").get("gender")]
 
+            valid_keys = ['name', 'nickname', 'age', 'blood_type', 'gender',
+                          'criminal_description', 'height', 'weight', 'criminal_region']
+            if not all(key in valid_keys for key in request.data.get('new_criminal_owner').keys()):
+                raise EntityError('new_criminal_owner')
+
             try:
-                new_criminal_owner = Criminal(age=criminal_data['age'], blood_type=new_blood_type, name=criminal_data['name'], nickname=criminal_data['nickname'], criminal_description=criminal_data['criminal_description'],
-                                              criminal_region=new_region, gender=new_gender, height=criminal_data['height'], weight=criminal_data['weight'])
+                new_criminal_owner = Criminal(age=new_age, blood_type=new_blood_type, name=request.data.get('new_criminal_owner').get('name'), nickname=request.data.get('new_criminal_owner').get('nickname'), criminal_description=request.data.get('new_criminal_owner').get('criminal_description'),
+                                              criminal_region=new_region, gender=new_gender, height=new_height, weight=new_weight)
             except:
                 raise EntityError('new_criminal_owner')
 
-            valid_keys = ['name', 'nickname', 'age', 'blood_type', 'gender',
-                          'criminal_description', 'height', 'weight', 'criminal_region']
-            if not all(key in valid_keys for key in criminal_data.keys()):
-                raise EntityError('new_criminal_owner')
-
             new_criminal_record = self.updateCriminalRecordUsecase(new_criminal_owner=new_criminal_owner, criminal_record_id=request.data.get(
-                "criminal_record_id"), new_danger_score=request.data.get("new_danger_score"), new_is_arrested=request.data.get("new_is_arrested"), new_prison=new_prison)
+                "criminal_record_id"), new_danger_score=new_danger_score, new_is_arrested=new_is_arrested, new_prison=new_prison)
 
             viewmodel = UpdateCriminalRecordViewmodel(new_criminal_record)
 
