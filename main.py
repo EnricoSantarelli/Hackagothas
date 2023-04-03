@@ -24,6 +24,10 @@ def update_criminal_record(data: dict = None):
             k: str(v) for k, v in data.items()
         }
     }
-
+    for key in data.keys():
+        if type(data[key]) == dict:
+            event["body"][key] = {
+                k: str(v) for k, v in data[key].items()
+            }
     response = update_criminal_record_presenter(event, None)
     return response

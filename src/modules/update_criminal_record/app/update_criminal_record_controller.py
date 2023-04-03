@@ -22,12 +22,11 @@ class UpdateCriminalRecordController:
 
     def __call__(self, request: HttpRequest) -> HttpResponse:
         try:
-
             # validation if the criminal_data is a dict when is not None. It raises a missing parameters if returns false
             criminal_data = request.data.get('new_criminal_owner')
             if not isinstance(criminal_data, dict) and criminal_data:
                 raise EntityError('new_criminal_owner')
-
+            
             # validation if the criminal_record_id is None. It raises a missing parameters if returns false
             if not request.data.get('criminal_record_id'):
                 raise MissingParameters('criminal_record_id')
@@ -130,7 +129,13 @@ class UpdateCriminalRecordController:
 
             valid_keys = ['name', 'nickname', 'age', 'blood_type', 'gender',
                           'criminal_description', 'height', 'weight', 'criminal_region']
-            if not all(key in valid_keys for key in criminal_data.keys()):
+            if not all(key in valid_keys for key in request.data.get('new_criminal_owner').keys()):
+                raise EntityError('new_criminal_owner')
+
+            try:
+                new_criminal_owner = Criminal(age=new_age, blood_type=new_blood_type, name=request.data.get('new_criminal_owner').get('name'), nickname=request.data.get('new_criminal_owner').get('nickname'), criminal_description=request.data.get('new_criminal_owner').get('criminal_description'),
+                                              criminal_region=new_region, gender=new_gender, height=new_height, weight=new_weight)
+            except:
                 raise EntityError('new_criminal_owner')
 
             new_criminal_record = self.updateCriminalRecordUsecase(new_criminal_owner=new_criminal_owner, criminal_record_id=request.data.get(
