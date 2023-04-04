@@ -1,4 +1,5 @@
 from typing import List
+import uuid
 from src.shared.domain.entities.crime import Crime
 from src.shared.domain.entities.criminal import Criminal
 from src.shared.domain.entities.criminal_record import CriminalRecord
@@ -226,3 +227,23 @@ class CriminalRecordRepositoryMock(ICriminalRecordRepository):
                 return criminal_record.crime_list
 
         raise NoItemsFound("criminal_record_id")
+
+    def create_crime(self, crime_type: CRIME_TYPE, date: int, crime_description: str, responsible_criminal: Criminal, crime_region: REGION, seriousness: SERIOUSNESS) -> Crime:
+        """
+            Function that creates and return a new crime
+        """
+
+        new_crime = Crime(crime_id=str(uuid.uuid4()),
+                          crime_type=crime_type,
+                          responsible_criminal=responsible_criminal,
+                          date=date,
+                          crime_description=crime_description,
+                          crime_region=crime_region,
+                          seriousness=seriousness)
+
+        self.crime_list.append(new_crime)
+        for criminal_record in self.criminal_record_list:
+            if criminal_record.criminal_owner == responsible_criminal:
+                criminal_record.crime_list.append(new_crime)
+
+        return new_crime
