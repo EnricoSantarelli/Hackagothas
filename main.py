@@ -35,12 +35,8 @@ def update_criminal_record(data: dict = None):
 
 
 @app.get("/get_all_criminal_records/")
-def get_all_criminal_records(data: dict = None):
-    event = {
-        "body": {
-            k: str(v) for k, v in data.items()
-        }
-    }
+def get_all_criminal_records():
+    event = {}
 
     response = get_all_criminal_records_presenter(event, None)
     return response

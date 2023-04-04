@@ -244,7 +244,7 @@ class Test_GetAllCriminalRecordsViewmodel:
                     'prison': None
                 }
             ],
-            'message': 'all criminal record was returned'
+            'message': 'all criminal records were found'
         }
 
         assert criminal_record_viewmodel == expected_criminal_record_json
