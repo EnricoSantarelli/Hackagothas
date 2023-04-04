@@ -4,7 +4,10 @@ from src.shared.domain.entities.crime import Crime
 from src.shared.domain.entities.criminal import Criminal
 
 from src.shared.domain.entities.criminal_record import CriminalRecord
+from src.shared.domain.enums.crime_type_enum import CRIME_TYPE
 from src.shared.domain.enums.prison_enum import PRISON
+from src.shared.domain.enums.region_enum import REGION
+from src.shared.domain.enums.seriousness_enum import SERIOUSNESS
 
 
 class ICriminalRecordRepository(ABC):
@@ -48,5 +51,12 @@ class ICriminalRecordRepository(ABC):
     def get_crimes_by_criminal_record_id(self, criminal_record_id: str) -> list[Crime]:
         """
             Abstract function that returns all the crimes of the passed criminal_record_id
+        """
+        pass
+
+    @abstractmethod
+    def create_crime(self, crime_type: CRIME_TYPE, date: int, crime_description: str, responsible_criminal: Criminal, crime_region: REGION, seriousness: SERIOUSNESS) -> Crime:
+        """
+            Abstract function that creates and return a new crime
         """
         pass
