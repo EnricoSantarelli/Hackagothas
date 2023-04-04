@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from src.modules.delete_criminal_record.app.delete_criminal_record_presenter import delete_criminal_record_presenter
 from src.modules.get_all_criminal_records.app.get_all_criminal_records_presenter import get_all_criminal_records_presenter
+from src.modules.get_crimes_by_criminal_record_id.app.get_crimes_by_criminal_record_id_presenter import get_crimes_by_criminal_record_id_presenter
 from src.modules.update_criminal_record.app.update_criminal_record_presenter import update_criminal_record_presenter
 
 app = FastAPI()
@@ -39,4 +40,16 @@ def get_all_criminal_records():
     event = {}
 
     response = get_all_criminal_records_presenter(event, None)
+    return response
+
+
+@app.post("/get_crimes_by_criminal_record_id/")
+def get_all_criminal_records(data: dict = None):
+    event = {
+        "body": {
+            k: str(v) for k, v in data.items()
+        }
+    }
+
+    response = get_crimes_by_criminal_record_id_presenter(event, None)
     return response

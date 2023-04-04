@@ -122,3 +122,13 @@ class Test_CriminalRecordRepositoryMock:
         criminal_record_list = repo.get_all_criminal_records()
 
         assert criminal_record_list == repo.criminal_record_list
+
+    def test_get_crimes_by_criminal_record_id(self):
+        """
+            The function that tests if the crime list is being getted by the repository when calling the function get_crimes_by_criminal
+        """
+        repo = CriminalRecordRepositoryMock()
+        crime_list = repo.get_crimes_by_criminal_record_id(
+            criminal_record_id=repo.criminal_record_list[0].criminal_record_id)
+
+        assert crime_list == [repo.crime_list[0], repo.crime_list[1]]

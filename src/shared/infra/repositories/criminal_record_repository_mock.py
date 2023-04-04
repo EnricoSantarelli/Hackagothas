@@ -216,3 +216,13 @@ class CriminalRecordRepositoryMock(ICriminalRecordRepository):
             Function that returns all criminal records
         """
         return self.criminal_record_list
+
+    def get_crimes_by_criminal_record_id(self, criminal_record_id: str) -> list[Crime]:
+        """
+            Function that returns all crimes of a criminal_record
+        """
+        for criminal_record in self.criminal_record_list:
+            if criminal_record.criminal_record_id == criminal_record_id:
+                return criminal_record.crime_list
+
+        raise NoItemsFound("criminal_record_id")
