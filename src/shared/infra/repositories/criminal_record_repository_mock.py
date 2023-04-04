@@ -210,3 +210,9 @@ class CriminalRecordRepositoryMock(ICriminalRecordRepository):
                 return criminal_record
 
         return None
+
+    def get_all_criminal_records(self) -> list[CriminalRecord]:
+        """
+            Function that returns all criminal records
+        """
+        return self.criminal_record_list
