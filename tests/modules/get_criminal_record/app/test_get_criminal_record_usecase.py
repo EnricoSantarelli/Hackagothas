@@ -1,5 +1,5 @@
 import pytest
-from src.modules.get_criminal_record.app.get_criminal_record_usecase import GetCriminalRecordUseCase
+from src.modules.get_criminal_record.app.get_criminal_record_usecase import GetCriminalRecordUsecase
 from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.infra.repositories.criminal_record_repository_mock import CriminalRecordRepositoryMock
 
@@ -12,7 +12,7 @@ class Test_GetCriminalRecordUsecase:
         """
 
         repo = CriminalRecordRepositoryMock()
-        usecase = GetCriminalRecordUseCase(repo=repo)
+        usecase = GetCriminalRecordUsecase(repo=repo)
 
         criminal_record = usecase(
             criminal_record_id=repo.criminal_record_list[0].criminal_record_id)
@@ -25,7 +25,7 @@ class Test_GetCriminalRecordUsecase:
         """
 
         repo = CriminalRecordRepositoryMock()
-        usecase = GetCriminalRecordUseCase(repo=repo)
+        usecase = GetCriminalRecordUsecase(repo=repo)
 
         with pytest.raises(EntityError):
             criminal_record = usecase(criminal_record_id=None)
