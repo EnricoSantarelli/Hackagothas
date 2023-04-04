@@ -1,5 +1,5 @@
-from src.modules.get_crimes_by_criminal_record_id.app.get_crimes_by_criminal_record_id_usecase import GetCrimesByCriminalRecordIdUsecase
-from src.modules.get_crimes_by_criminal_record_id.app.get_crimes_by_criminal_record_id_viewmodel import GetCrimesByCriminalRecordIdViewmodel
+from .get_crimes_by_criminal_record_id_usecase import GetCrimesByCriminalRecordIdUsecase
+from .get_crimes_by_criminal_record_id_viewmodel import GetCrimesByCriminalRecordIdViewmodel
 from src.shared.helpers.errors.controller_errors import MissingParameters
 from src.shared.helpers.errors.domain_errors import EntityError
 from src.shared.helpers.errors.usecase_errors import NoItemsFound
