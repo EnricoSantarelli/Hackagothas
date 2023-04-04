@@ -1,5 +1,5 @@
-from src.modules.create_crime.app.create_crime_usecase import CreateCrimeUsecase
-from src.modules.create_crime.app.create_crime_viewmodel import CreateCrimeViewmodel
+from .create_crime_usecase import CreateCrimeUsecase
+from .create_crime_viewmodel import CreateCrimeViewmodel
 from src.shared.domain.entities.criminal import Criminal
 from src.shared.domain.enums.blood_type_enum import BLOOD_TYPE
 from src.shared.domain.enums.crime_type_enum import CRIME_TYPE
