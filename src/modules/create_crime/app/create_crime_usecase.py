@@ -19,7 +19,7 @@ class CreateCrimeUsecase():
         # validation the business rule that can't exist a crime with a inexistent criminal
         criminal_records = self.repo.get_all_criminal_records()
         for criminal_record in criminal_records:
-            if criminal_record.criminal_owner == responsible_criminal:
+            if criminal_record.criminal_owner.name == responsible_criminal.name:
                 break
             raise ExcededParameters(
                 "The criminal owner of the crime must be registered")
