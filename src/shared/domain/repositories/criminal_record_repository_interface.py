@@ -43,3 +43,10 @@ class ICriminalRecordRepository(ABC):
             Abstract function that returns all the criminal records
         """
         pass
+
+    @abstractmethod
+    def get_crimes_by_criminal_record_id(self, criminal_record_id: str) -> list[Crime]:
+        """
+            Abstract function that returns all the crimes of the passed criminal_record_id
+        """
+        pass
