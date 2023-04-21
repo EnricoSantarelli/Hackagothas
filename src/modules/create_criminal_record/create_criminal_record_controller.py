@@ -8,7 +8,7 @@ from src.shared.helpers.external_interfaces.http_codes import Created, NotFound,
 from src.shared.helpers.external_interfaces.http_models import HttpRequest, HttpResponse
 
 
-class DeleteCriminalRecordController:
+class CreateCriminalRecordController:
     """Controller of the route Delete Criminal Record"""
 
     def __init__(self, usecase: CreateCriminalRecordUsecase):

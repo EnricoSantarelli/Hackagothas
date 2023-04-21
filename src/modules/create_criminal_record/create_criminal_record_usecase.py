@@ -16,7 +16,7 @@ class CreateCriminalRecordUsecase:
         if not CriminalRecord.validate_criminal_record_id(criminal_record_id):
             raise EntityError("criminal_record_id")
 
-    # get the criminal record in the repository mock with the id passed
+        # get the criminal record in the repository mock with the id passed
         criminal_record = self.repo.get_criminal_record(
             criminal_record_id=criminal_record_id)
 
@@ -45,7 +45,6 @@ class CreateCriminalRecordUsecase:
         # validation if the new_is_arrested is valid using the function validade_is_arrested. It raises a entity error if returns false
         if not CriminalRecord.validate_is_arrested(is_arrested):
             raise EntityError("is_arrested")
-
 
         return self.repo.update_criminal_record(criminal_record_id=criminal_record_id, new_criminal_owner=criminal_owner, new_danger_score=danger_score, new_is_arrested=is_arrested, new_prison=prison)
 
