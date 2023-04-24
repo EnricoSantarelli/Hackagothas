@@ -75,18 +75,13 @@ class Test_CriminalRecordRepositoryMock:
             The function that tests if the criminal record is being created by the repository when calling the function create_criminal_record
         """
         repo = CriminalRecordRepositoryMock()
-        new_criminal_record = CriminalRecord(
-            criminal_owner=self.criminal,
-            crime_list=self.crime_list,
-            criminal_record_id="cd689029-4a77-484e-9d78-c9ae19329178",
-            danger_score=5,
-            is_arrested=True,
-            prison=PRISON.BLACKGATE)
+        new_criminal_record = repo.create_criminal_record(new_criminal_record_id="4d108071-6d0f-48cb-8675-5d38049c3ecc",
+                                                          new_criminal_owner=self.criminal, new_is_arrested=True, new_prison=PRISON.ARKHAMASILUM, new_danger_score=2)
 
-        criminal_record_created = repo.create_criminal_record(
-            new_criminal_record=new_criminal_record)
-
-        assert criminal_record_created == new_criminal_record
+        assert new_criminal_record.criminal_owner == self.criminal
+        assert new_criminal_record.is_arrested == True
+        assert new_criminal_record.prison == PRISON.ARKHAMASILUM
+        assert new_criminal_record.danger_score == 2
 
     def test_delete_criminal_record(self):
         """

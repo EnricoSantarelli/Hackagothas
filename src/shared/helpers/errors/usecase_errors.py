@@ -16,7 +16,6 @@ class ForbiddenAction(BaseError):
     def __init__(self, message: str):
         super().__init__(f'That action is forbidden for this {message}')
 
-
 class ExcededParameters(BaseError):
-    def init(self, message: str):
-        super().init(f'{message}')
+    def __init__(self, message: str):
+        super().__init__(f'{message}')

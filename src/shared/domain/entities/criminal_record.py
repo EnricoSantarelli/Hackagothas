@@ -161,6 +161,4 @@ class CriminalRecord(abc.ABC):
         """
         if not all([type(crime) == Crime for crime in crime_list]):
             return False
-        elif crime_list == []:
-            return False
         return True

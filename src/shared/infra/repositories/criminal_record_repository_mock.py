@@ -176,10 +176,21 @@ class CriminalRecordRepositoryMock(ICriminalRecordRepository):
                 return criminal_record
         raise NoItemsFound("criminal_record_id")
 
-    def create_criminal_record(self, new_criminal_record: CriminalRecord) -> CriminalRecord:
+    def create_criminal_record(self, new_criminal_record_id: str, new_danger_score: int, new_criminal_owner: Criminal, new_is_arrested: bool, new_prison: PRISON = None) -> CriminalRecord:
         """
             Function that creates and return a new criminal record
         """
+
+        new_criminal_record = CriminalRecord(
+            crime_list= [],
+            criminal_owner=new_criminal_owner,
+            criminal_record_id=new_criminal_record_id,
+            danger_score=new_danger_score,
+            is_arrested=new_is_arrested,
+            prison=new_prison,
+            )
+
+
         self.criminal_record_list.append(new_criminal_record)
         return new_criminal_record
 
