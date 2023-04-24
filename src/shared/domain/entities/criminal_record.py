@@ -20,7 +20,7 @@ class CriminalRecord(abc.ABC):
             Example: 4. 
     """
 
-    criminal: Criminal
+    criminal_owner: Criminal
     """The author of the crime. \n
             Example: Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90)
     """
@@ -35,7 +35,7 @@ class CriminalRecord(abc.ABC):
             Example: PRISON.BLACKGATE. 
     """
 
-    crime_list: List[Crime]
+    crime_list: list[Crime]
     """The list of crimes the criminal commited. 
         Example: [Crime(id="c303282d-f2e6-46ca-a04a-35d3d873712d", description="The crime was extremely violent, leaving 6 citizens injured and 2 dead. The author left few clues behind.",
               date=1585312648914, criminal=Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90),
@@ -52,17 +52,17 @@ class CriminalRecord(abc.ABC):
 
     ID_LENGTH = 36
 
-    def __init__(self, criminal: Criminal, criminal_record_id: str, danger_score: int, is_arrested: bool, prison: PRISON, crime_list: List[Crime]):
+    def __init__(self, criminal_owner: Criminal, criminal_record_id: str, danger_score: int, is_arrested: bool, crime_list: list[Crime] = None, prison: PRISON = None):
         """Criminal Record class constructor"""
 
         # validation if the criminal is valid using the function validade_criminal. It raises a entity error if returns false
-        if not CriminalRecord.validate_criminal(criminal):
-            raise EntityError("criminal")
-        self.criminal = criminal
+        if not CriminalRecord.validate_criminal_owner(criminal_owner):
+            raise EntityError("criminal_owner")
+        self.criminal_owner = criminal_owner
 
         # validation if the isArrested is valid using the function validade_isArrested. It raises a entity error if returns false
         if not CriminalRecord.validate_is_arrested(is_arrested):
-            raise EntityError("isArrested")
+            raise EntityError("is_arrested")
         self.is_arrested = is_arrested
 
         # validation if the prison is valid using the function validade_prison. It raises a entity error if returns false
@@ -70,8 +70,8 @@ class CriminalRecord(abc.ABC):
             raise EntityError("prison")
         self.prison = prison
 
-        # validation if the prison is valid using the function validade_id. It raises a entity error if returns false
-        if not CriminalRecord.validate_id(criminal_record_id):
+        # validation if the criminal_record_id is valid using the function validade_criminal_record_id. It raises a entity error if returns false
+        if not CriminalRecord.validate_criminal_record_id(criminal_record_id):
             raise EntityError("criminal_record_id")
         self.criminal_record_id = criminal_record_id
 
@@ -86,7 +86,7 @@ class CriminalRecord(abc.ABC):
         self.danger_score = danger_score
 
     @staticmethod
-    def validate_id(criminal_record_id: str) -> bool:
+    def validate_criminal_record_id(criminal_record_id: str) -> bool:
         """The function that validates the id, it returns false if the id is none, the type is wrong or if its diferent of the necessary size. \n
             Example: criminal_record_i = 2.3 -> False 
             Example: criminal_record_i = None -> False 
@@ -102,12 +102,12 @@ class CriminalRecord(abc.ABC):
         return True
 
     @staticmethod
-    def validate_criminal(criminal: Criminal) -> bool:
+    def validate_criminal_owner(criminal_owner: Criminal) -> bool:
         """The function that validates the criminal, it returns false if the type is wrong. \n
             Example: criminal = "1585312648914" -> False 
             Example: Criminal(name="VITOR", nickname="O destruidor de API", description="Esse criminoso terroriza os desenvolvedores front-end derrubando a API minutos antes da entrega. Não se sabe quantas vitimas morreram do coração achando que o erro era do front", gender=GENDER.UNDEFINED, region=REGION.INDUSTRIAL_DISTRICT, blood_type=BLOOD_TYPE.O_PLUS, age=21, weight=65.6, height=1.90) -> True 
         """
-        if type(criminal) != Criminal:
+        if type(criminal_owner) != Criminal:
             return False
         return True
 
@@ -123,7 +123,7 @@ class CriminalRecord(abc.ABC):
             return False
         elif type(danger_score) != int:
             return False
-        elif not CriminalRecord.MIN_DANGER_SCORE <= danger_score < CriminalRecord.MAX_DANGER_SCORE:
+        elif not CriminalRecord.MIN_DANGER_SCORE <= danger_score <= CriminalRecord.MAX_DANGER_SCORE:
             return False
         return True
 
@@ -134,9 +134,7 @@ class CriminalRecord(abc.ABC):
             Example: prison = None -> False 
             Example: prison = PRISON.BLACKGATE -> True 
         """
-        if prison is None:
-            return False
-        elif type(prison) != PRISON:
+        if type(prison) != PRISON and prison != None:
             return False
         return True
 
@@ -161,10 +159,6 @@ class CriminalRecord(abc.ABC):
             Example: crime_list = "" -> False 
             Example: crime_list = False -> True 
         """
-        if crime_list is None:
-            return False
-        elif not all([type(crime) == Crime for crime in crime_list]):
-            return False
-        elif crime_list == []:
+        if not all([type(crime) == Crime for crime in crime_list]):
             return False
         return True
