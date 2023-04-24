@@ -20,7 +20,7 @@ class ICriminalRecordRepository(ABC):
         pass
 
     @abstractmethod
-    def create_criminal_record(self, criminal_record: CriminalRecord) -> CriminalRecord:
+    def create_criminal_record(self, new_criminal_record_id: str, new_danger_score: int = None, new_criminal_owner: Criminal = None, new_is_arrested: bool = None, new_prison: PRISON = None) -> CriminalRecord:
         """
             Abstract function that creates and return a new criminal record
         """
