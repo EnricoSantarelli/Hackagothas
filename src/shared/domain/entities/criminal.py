@@ -1,4 +1,5 @@
 import abc
+import dataclasses
 
 from src.shared.domain.enums.blood_type_enum import BLOOD_TYPE
 from src.shared.domain.enums.gender_enum import GENDER

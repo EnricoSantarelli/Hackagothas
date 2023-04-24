@@ -106,11 +106,29 @@ class Test_CriminalRecordRepositoryMock:
         """
         repo = CriminalRecordRepositoryMock()
 
-        new_criminal_record = repo.update_criminal_record(criminal_record_id="4d108071-6d0f-48cb-8675-5d38049c3ecc", new_crime_list=self.crime_list,
+        new_criminal_record = repo.update_criminal_record(criminal_record_id="4d108071-6d0f-48cb-8675-5d38049c3ecc",
                                                           new_criminal_owner=self.criminal, new_is_arrested=True, new_prison=PRISON.ARKHAMASILUM, new_danger_score=2)
 
-        assert new_criminal_record.crime_list == self.crime_list
         assert new_criminal_record.criminal_owner == self.criminal
         assert new_criminal_record.is_arrested == True
         assert new_criminal_record.prison == PRISON.ARKHAMASILUM
         assert new_criminal_record.danger_score == 2
+
+    def test_get_all_criminal_records(self):
+        """
+            The function that tests if the criminal record list is being getted by the repository when calling the function get_all_criminal_records
+        """
+        repo = CriminalRecordRepositoryMock()
+        criminal_record_list = repo.get_all_criminal_records()
+
+        assert criminal_record_list == repo.criminal_record_list
+
+    def test_get_crimes_by_criminal_record_id(self):
+        """
+            The function that tests if the crime list is being getted by the repository when calling the function get_crimes_by_criminal
+        """
+        repo = CriminalRecordRepositoryMock()
+        crime_list = repo.get_crimes_by_criminal_record_id(
+            criminal_record_id=repo.criminal_record_list[0].criminal_record_id)
+
+        assert crime_list == [repo.crime_list[0], repo.crime_list[1]]

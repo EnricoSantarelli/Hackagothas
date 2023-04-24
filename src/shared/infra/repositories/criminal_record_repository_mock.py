@@ -1,4 +1,5 @@
 from typing import List
+import uuid
 from src.shared.domain.entities.crime import Crime
 from src.shared.domain.entities.criminal import Criminal
 from src.shared.domain.entities.criminal_record import CriminalRecord
@@ -165,7 +166,6 @@ class CriminalRecordRepositoryMock(ICriminalRecordRepository):
                            danger_score=3,
                            is_arrested=False),
         ]
-        self.criminal_records_counter = 4
 
     def get_criminal_record(self, criminal_record_id: int) -> CriminalRecord:
         """
@@ -181,7 +181,6 @@ class CriminalRecordRepositoryMock(ICriminalRecordRepository):
             Function that creates and return a new criminal record
         """
         self.criminal_record_list.append(new_criminal_record)
-        self.criminal_records_counter += 1
         return new_criminal_record
 
     def delete_criminal_record(self, criminal_record_id: str) -> CriminalRecord:
@@ -194,7 +193,7 @@ class CriminalRecordRepositoryMock(ICriminalRecordRepository):
 
         raise NoItemsFound("criminal_record_id")
 
-    def update_criminal_record(self, criminal_record_id: str, new_danger_score: int = None, new_criminal_owner: Criminal = None, new_is_arrested: bool = None, new_prison: PRISON = None, new_crime_list: List[Crime] = None) -> CriminalRecord:
+    def update_criminal_record(self, criminal_record_id: str, new_danger_score: int = None, new_criminal_owner: Criminal = None, new_is_arrested: bool = None, new_prison: PRISON = None) -> CriminalRecord:
         """
             Function that updates and return a new criminal record of the passed criminal record id
         """
@@ -208,9 +207,43 @@ class CriminalRecordRepositoryMock(ICriminalRecordRepository):
                     criminal_record.is_arrested = new_is_arrested
                 if new_prison is not None:
                     criminal_record.prison = new_prison
-                if new_crime_list is not None:
-                    criminal_record.crime_list = new_crime_list
 
                 return criminal_record
 
-            return None
+        return None
+
+    def get_all_criminal_records(self) -> list[CriminalRecord]:
+        """
+            Function that returns all criminal records
+        """
+        return self.criminal_record_list
+
+    def get_crimes_by_criminal_record_id(self, criminal_record_id: str) -> list[Crime]:
+        """
+            Function that returns all crimes of a criminal_record
+        """
+        for criminal_record in self.criminal_record_list:
+            if criminal_record.criminal_record_id == criminal_record_id:
+                return criminal_record.crime_list
+
+        raise NoItemsFound("criminal_record_id")
+
+    def create_crime(self, crime_type: CRIME_TYPE, date: int, crime_description: str, responsible_criminal: Criminal, crime_region: REGION, seriousness: SERIOUSNESS) -> Crime:
+        """
+            Function that creates and return a new crime
+        """
+
+        new_crime = Crime(crime_id=str(uuid.uuid4()),
+                          crime_type=crime_type,
+                          responsible_criminal=responsible_criminal,
+                          date=date,
+                          crime_description=crime_description,
+                          crime_region=crime_region,
+                          seriousness=seriousness)
+
+        self.crime_list.append(new_crime)
+        for criminal_record in self.criminal_record_list:
+            if criminal_record.criminal_owner == responsible_criminal:
+                criminal_record.crime_list.append(new_crime)
+
+        return new_crime

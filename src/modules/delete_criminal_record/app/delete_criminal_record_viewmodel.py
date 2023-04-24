@@ -46,7 +46,7 @@ class CriminalViewmodel:
             "gender": self.gender,
             "height": self.height,
             "weight": self.weight,
-            "criminal_description": self.criminal_region
+            "criminal_region": self.criminal_region
         }
 
 
