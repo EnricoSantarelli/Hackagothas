@@ -39,7 +39,7 @@ class CreateCriminalRecordController:
             if not request.data.get('new_is_arrested'):
                 raise MissingParameters('new_is_arrested')
             # validation if the new_prison is None. It raises a missing parameters if returns false
-            if not request.data.get('new_prison'):
+            if(not request.data.get('new_prison') and request.data.get('new_is_arrested') == 'True'):
                 raise MissingParameters('new_prison')
             # validation if the criminal_region is None. It raises a missing parameters if returns false
             if not request.data.get('new_criminal_owner').get('criminal_region'):
@@ -97,17 +97,20 @@ class CreateCriminalRecordController:
             except:
                 raise EntityError('new_weight')
 
-            # validation if the new_is_arrested is bool. It raises a entity error if returns false
+           # validation if the new_is_arrested is bool. It raises a entity error if returns false
             new_is_arrested = request.data.get('new_is_arrested')
             if new_is_arrested.lower() != 'true' and new_is_arrested.lower() != 'false':
                 raise EntityError('new_is_arrested')
             else:
-                new_is_arrested = bool(new_is_arrested)
-
-            # validation if the type of the new_prison is wrong. It raises a entity error if returns false
-            if request.data.get("new_prison") not in [prison_value.value for prison_value in PRISON]:
-                raise EntityError('new_prison')
-            new_prison = PRISON[request.data.get("new_prison")]
+                if(new_is_arrested == 'True'):
+                    new_is_arrested = True
+                else:
+                    new_is_arrested = False
+                    
+            if request.data.get("new_prison"):
+                new_prison = PRISON[request.data.get("new_prison")]
+            else: 
+                new_prison = None
             # validation if the type of the criminal_region is wrong. It raises a entity error if returns false
             if request.data.get("new_criminal_owner").get("criminal_region") not in [region_value.value for region_value in REGION]:
                 raise EntityError('criminal_gion')
