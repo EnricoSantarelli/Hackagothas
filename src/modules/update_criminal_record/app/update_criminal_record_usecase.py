@@ -29,26 +29,10 @@ class UpdateCriminalRecordUsecase:
             raise NoItemsFound("criminal_record")
 
         # validation the business rule that can't exist a prison if the criminal isn't arrested and if the criminal is arrested must exist a prison
-        if new_is_arrested == False and new_prison != None:
+        if (new_is_arrested == False or new_is_arrested == None) and new_prison != None:
             raise ExcededParameters(
                 "The parameter is_arrested must be true if you pass a prison!")
-        if new_is_arrested == True and criminal_record.prison == None and new_prison == None:
+        if new_is_arrested == True and new_prison == None:
             raise MissingParameters("new_prison")
-
-        # validation if the new_prison is valid using the function validade_prison. It raises a entity error if returns false
-        if not CriminalRecord.validate_prison(new_prison):
-            raise EntityError("new_prison")
-
-        # validation if the new_danger_score is valid using the function validade_danger_score It raises a entity error if returns false
-        if not CriminalRecord.validate_danger_score(new_danger_score):
-            raise EntityError("new_danger_score")
-
-        # validation if the new_criminal_owner is valid using the function validade_criminal_owner It raises a entity error if returns false
-        if not CriminalRecord.validate_criminal_owner(new_criminal_owner):
-            raise EntityError("new_criminal_owner")
-
-        # validation if the new_is_arrested is valid using the function validade_is_arrested. It raises a entity error if returns false
-        if not CriminalRecord.validate_is_arrested(new_is_arrested):
-            raise EntityError("new_is_arrested")
 
         return self.repo.update_criminal_record(criminal_record_id=criminal_record_id, new_criminal_owner=new_criminal_owner, new_danger_score=new_danger_score, new_is_arrested=new_is_arrested, new_prison=new_prison)
