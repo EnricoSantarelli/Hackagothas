@@ -88,10 +88,10 @@ class CriminalRecord(abc.ABC):
     @staticmethod
     def validate_criminal_record_id(criminal_record_id: str) -> bool:
         """The function that validates the id, it returns false if the id is none, the type is wrong or if its diferent of the necessary size. \n
-            Example: criminal_record_i = 2.3 -> False 
-            Example: criminal_record_i = None -> False 
-            Example: criminal_record_i = "c303282d-f2e6-46ca-a04a-35d3" -> False
-            Example: criminal_record_i = "c303282d-f2e6-46ca-a04a-35d3d873712d" -> True 
+            Example: criminal_record_id = 2.3 -> False 
+            Example: criminal_record_id = None -> False 
+            Example: criminal_record_id = "c303282d-f2e6-46ca-a04a-35d3" -> False
+            Example: criminal_record_id = "c303282d-f2e6-46ca-a04a-35d3d873712d" -> True 
         """
         if criminal_record_id is None:
             return False
@@ -136,6 +136,8 @@ class CriminalRecord(abc.ABC):
         """
         if type(prison) != PRISON and prison != None:
             return False
+        if prison == None:
+            return True
         return True
 
     @staticmethod
