@@ -1,175 +1,116 @@
-# clean_mss_template 🌡🍽
+# 🚨 Gotham City Police Department
+This project was developed as part of an internal hackathon organized by the university entity [Dev. Community Mauá](https://github.com/Maua-Dev). The goal of the project is to practice back-end knowledge using Python and develop skills in the Clean architecture.
 
-Template for microservices repositories based in Clean Arch
+## 🔥Features
 
-## The Project 📽
+The application simulates a police incident management system. The system has three main entities: Criminal, Criminal Record and Crime. Users can create, read, update and delete the criminal records in the system, also there are routes get and create crimes.
 
-### Introduction and Objectives ⁉
+## 🧑‍💻Technologies Used
+- Python 
+- FastAPI
+- Visual Studio Code
 
-The main objective is to provide a template for repositories that can be used as a starting point for new projects. This
-architecture is based on the Clean Architecture, and it was based in many other projects and books, articles that were
-mixed by the students of Mauá Institute of Technology, from the academic group Dev. Community Mauá.
-
-### Reasons 1️⃣3️⃣
-
-The project aims to help developers to start new projects with a good architecture, and with a good structure, so that anybody can create good applications.
-
-### Clean Architecture 🧼🏰
-
-The purpose of the project is to learn and create a Clean Architecture for microservices stateless with AWS Lambda which is a way of structuring
-the code in layers, each of which has a
-specific responsibility. This architecture is based on the principles of SOLID and books like "Clean Architecture: A
-Craftsman's Guide to Software Structure and Design" by Robert C. Martin.
-
-We also tried to explain for new programmers in the mos intuitive way and you can see the explanation here: [Clean Architecture Figma](https://www.figma.com/file/CmfQcH2xbZyIszPX0iOxPp/Clean-Arch---HackaBeckas?node-id=0%3A1&t=B38vNfX3VSv6qtU7-1)
-
-
-### Folder Structure 🎄🌴🌲🌳
-
-Our folder structure was developed specially for our projects. 
-
+## ⚙️Installation and Usage
+To test the project, it is necessary to use FastAPI as the project is currently mocked.
+To install and run the project on your local machine, follow these steps:
 
 ```bash
-.
-├── iac
-├── src
-│   ├── modules
-│   │   ├── create_user
-│   │   │   └── app
-│   │   ├── delete_user
-│   │   │   └── app
-│   │   ├── get_user
-│   │   │   └── app
-│   │   └── update_user
-│   │       └── app
-│   └── shared
-│       ├── domain
-│       │   ├── entities
-│       │   ├── enums
-│       │   └── repositories
-│       ├── helpers
-│       │   ├── enum
-│       │   ├── errors
-│       │   ├── functions
-│       │   └── http
-│       └── infra
-│           ├── dto
-│           ├── external
-│           └── repositories
-└── tests
-    ├── modules
-    │   ├── create_user
-    │   │   └── app
-    │   ├── delete_user
-    │   │   └── app
-    │   ├── get_user
-    │   │   └── app
-    │   └── update_user
-    │       └── app
-    └── shared
-        ├── domain
-        │   └── entities
-        ├── helpers
-        └── infra
-
+  git clone https://github.com/EnricoSantarelli/Hackagothas.git
+  pip install fastapi
+  uvicorn main:app
 ```
 
+## 🗺️Available Routes
 
-## Name Format 📛
-### Files and Directories 📁
+#### Return all the mocked criminal records
+```http
+  GET /get_all_criminal_records/
+```
 
-- Files have the same name as the classes
-- snake_case 🐍 (ex: `./app/create_user_controller.py`)
+#### Return a criminal record
+```http
+  POST /get_criminal_record/
+```
 
-### Classes 🕴
-- #### Pattern 📟
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `criminal_record_id` | `string` | **Required**. The criminal record identifier |
 
-    - CamelCase 🐫🐪
+#### Return a list of crimes
+```http
+  POST /get_crimes_by_criminal_record_id/
+```
 
-- #### Types 🧭
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `criminal_record_id` | `string` | **Required**. The criminal record identifier |
 
-    - **Interface** starts with "I" --> `IUserRepository`, `ISelfieRepository` 😀
-    - **Repository** have the same name as interface, without the "I" and the type in final (ex: `UserRepositoryMock`, `SelfieRepositoryDynamo`) 🥬
-    - **Controller** ends with "Controller" --> `CreateUserController`, `GetSelfieController` 🎮
-    - **Usecase** ends with "Usecase" --> `CreateUserUsecase`, `GetSelfieUsecase` 🏠
-    - **Viewmodel** ends with "Viewmodel" --> `CreateUserViewmodel`, `GetSelfieViewmodel` 👀
-    - **Presenter** ends with "Presenter" --> `CreateUserPresenter`, `GetSelfiePresenter`🎁
+#### Return a list of crimes
+```http
+  POST /get_crimes_by_criminal_record_id/
+```
 
-### Methods 👨‍🏫
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `criminal_record_id` | `string` | **Required**. The criminal record identifier |
 
-- snake_case 🐍
-- Try associate with a verb (ex: `create_user`, `get_user`, `update_selfie`)
+#### Create a crime
+```http
+  POST /create_crime/
+```
 
-### Variables 🅰
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `crime_type` | `CRIME_TYPE` | **Required**. the crime type of the new crime |
+| `date` | `int` | **Required**. The date that occurred the new crime |
+| `crime_description` | `string` | **Required**. The description of how occurred the new crime |
+| `responsible_criminal` | `Criminal` | **Required**. Who is the responsible of the new crime |
+| `crime_region` | `REGION` | **Required**. Where occurred the new crime |
+| `seriousness` | `SERIOUSNESS` | **Required**. How seriousness was the crime |
 
-- snake_case 🐍
-- Avoid verbs
+#### Create a criminal record
+```http
+  POST /create_criminal_record/
+```
 
-### Enums
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `new_criminal_record_id` | `string` | **Required**. The new criminal record identifier |
+| `new_criminal_owner` | `Criminal` | **Required**. The new criminal owner of the criminal record |
+| `new_danger_score` | `int` | **Required**. The new danger score of the criminal |
+| `new_is_arrested` | `bool` | **Required**. The new is arrested to indicate if the criminal is in a prison |
+| `new_prison` | `PRISON` | The new prison of the criminal if he is arrested |
 
-- SNAKE_CASE 🐍
-- File name ends with "ENUM" (ex: "STATE_ENUM")
+#### Update a criminal record
+```http
+  PUT /update_criminal_record/
+```
 
-### Tests 📄
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `criminal_record_id` | `string` | **Required**. The criminal record identifier that will be updated |
+| `new_criminal_owner` | `Criminal` | **Required**. The new criminal owner of the criminal record |
+| `new_danger_score` | `int` | **Required**. The new danger score of the criminal |
+| `new_is_arrested` | `bool` | **Required**. The new is arrested to indicate if the criminal is in a prison |
+| `new_prison` | `PRISON` | The new prison of the criminal if he is arrested |
 
-- snake_case 🐍
-- "test" follow by class name (ex: `test_cadastrar_usuario_valido`, `test_cadastrar_usuario_sem_email`)
-    - The files must start with "test" to pytest recognition
+#### Delete a criminal record
+```http
+  DELETE /delete_criminal_record/
+```
 
-### Commit 💢
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+| `criminal_record_id` | `string` | **Required**. The criminal record identifier |
 
-- Start with verb
-- Ends with emoji 😎
+## 🪞References
 
-## Installation 👩‍💻
-
-Clone the repository using template
-
-### Create virtual ambient in python (only first time)
-
-###### Windows
-
-    python -m venv venv
-
-###### Linux
-
-    virtualenv -p python3.9 venv
-
-### Activate the venv
-
-###### Windows:
-
-    venv\Scripts\activate
-
-###### Linux:
-
-    source venv/bin/activate
-
-### Install the requirements
-
-    pip install -r requirements-dev.txt
-
-### Run the tests
-
-    pytest
-
-### To run local set .env file
-
-    STAGE = TEST
-
-
-## Contributors 💰🤝💰
-
-- Bruno Vilardi - [Brvilardi](https://github.com/Brvilardi) 👷‍♂️
-- Hector Guerrini - [hectorguerrini](https://github.com/hectorguerrini) 🧙‍♂️
-- João Branco - [JoaoVitorBranco](https://github.com/JoaoVitorBranco) 😎
-- Vitor Soller - [VgsStudio](https://github.com/VgsStudio) 🐱‍💻
-
-## Especial Thanks 🙏
-
-- [Dev. Community Mauá](https://www.instagram.com/devcommunitymaua/)
-- [Clean Architecture: A Craftsman's Guide to Software Structure and Design](https://www.amazon.com.br/Clean-Architecture-Craftsmans-Software-Structure/dp/0134494164)
-- [Institute Mauá of Technology](https://www.maua.br/)
+ - [Dev. Community Clean MSS Template](https://github.com/Maua-Dev/clean_mss_template)
+ - [Example followed](https://github.com/JoaoVitorBranco/HackaBeckas2.0)
+ - [Teacher](https://github.com/JoaoVitorBranco)
 
 
+## 🧑‍🎨Authors
 
+- [@EnricoSantarelli](https://github.com/EnricoSantarelli)
+- [@AmorimBreno](https://github.com/AmorimBreno)
