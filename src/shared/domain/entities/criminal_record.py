@@ -136,6 +136,8 @@ class CriminalRecord(abc.ABC):
         """
         if type(prison) != PRISON and prison != None:
             return False
+        if prison == None:
+            return True
         return True
 
     @staticmethod
